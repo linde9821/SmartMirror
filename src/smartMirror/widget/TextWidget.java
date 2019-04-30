@@ -19,9 +19,9 @@ public class TextWidget extends Widget{
 		
 	}
 	
-	public String getText() {
+	public String getText(String givenText) {
 		
-		testText = "Moritz stinkt!";
+		testText = givenText;
 		
 		return testText;
 	}
