@@ -10,5 +10,7 @@ public abstract class Widget implements Runnable{
 	abstract public void Delete();
 	
 	abstract public void  Add();
+	
+	abstract public void run();
 
 }
