@@ -1,5 +1,6 @@
 package smartMirror.widget;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import smartMirror.Location.Area;
@@ -24,6 +25,7 @@ public class TextWidget extends Widget{
 
 	@Override
 	public void render(Graphics g) {
+		g.setColor(Color.MAGENTA);
 		g.drawString(testText, 10, 10);
 	}
 
