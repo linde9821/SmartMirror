@@ -26,10 +26,9 @@ public class TextWidget extends Widget{
 	@Override
 	public void render(Graphics g) {
 		g.setColor(Color.MAGENTA);
+		g.drawRect(10, 10, 20, 5);
 		g.drawString(testText, 10, 10);
 	}
-
-	
-	
+		
 	
 }
