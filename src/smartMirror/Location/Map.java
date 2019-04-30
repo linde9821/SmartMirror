@@ -16,7 +16,7 @@ public class Map {
 	}
 	
 	public void updateArea(Area area, boolean status) {
-		for (int y = 0; y < area.getHigth(); y++) {
+		for (int y = 0; y < area.getHight(); y++) {
 			for (int x = 0; x < area.getWidth(); x++) {
 				cells[x][y].setActive(true);
 			}
@@ -24,8 +24,8 @@ public class Map {
 	}
 	
 	public boolean checkAreaFor(Area area, boolean status) {
-		for (int y = 0; y < area.getHigth(); y++) {
-			for (int x = 0; x < area.getWidth(); x++) {
+		for (int y = area.getyCoord(); y < area.getHight(); y++) {
+			for (int x = area.getxCoord(); x < area.getWidth(); x++) {
 				if (cells[x][y].isActive() != status) {
 					return false;
 				}

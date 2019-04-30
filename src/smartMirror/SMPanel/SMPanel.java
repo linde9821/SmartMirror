@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import smartMirror.Settings.Settings;
 //Selfmade
 import smartMirror.widget.Widget;
 import smartMirror.widget.WidgetHandler;
@@ -18,11 +19,11 @@ public class SMPanel extends JPanel{
 	
 	WidgetHandler wh;
 	
-	public SMPanel() {
-		setBackground(Color.RED);
+	public SMPanel(Settings settings) {
+		setBackground(Color.BLACK);
 		activeWidgets = new ArrayList<Widget>();
 		passiveWidgets = new ArrayList<Widget>();
-		wh = new WidgetHandler(activeWidgets, passiveWidgets, this);
+		wh = new WidgetHandler(activeWidgets, passiveWidgets, this, settings);
 	}
 
 	

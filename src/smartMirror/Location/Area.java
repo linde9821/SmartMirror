@@ -1,8 +1,8 @@
 package smartMirror.Location;
 
 public class Area extends Position{
-
-	int width, higth;
+	
+	int width, hight;
 	
 	public int getWidth() {
 		return width;
@@ -12,22 +12,18 @@ public class Area extends Position{
 		this.width = width;
 	}
 
-	public int getHigth() {
-		return higth;
+	public int getHight() {
+		return hight;
 	}
 
-	public void setHigth(int higth) {
-		this.higth = higth;
-	}
-
-	public Area() {
-		// TODO Auto-generated constructor stub
+	public void setHight(int hight) {
+		this.hight = hight;
 	}
 	
 	public Area(int x, int y, int width, int hight) {
 		super(x, y);
 		this.width = width;
-		this.higth = higth;
+		this.hight = hight;
 	}
 
 }

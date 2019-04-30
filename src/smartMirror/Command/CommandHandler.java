@@ -1,4 +1,4 @@
-package smartMirror.SMManager;
+package smartMirror.Command;
 
 import java.util.ArrayList;
 
@@ -6,16 +6,17 @@ import smartMirror.Exception.SmartMirrorException;
 import smartMirror.widget.WidgetHandler;
 
 public class CommandHandler {
-	private ArrayList<String> commandList = new ArrayList<String>();
+	private ArrayList<Command> commandList;
 	private WidgetHandler wh;
 	
 	public CommandHandler(WidgetHandler wh) {
 		this.wh = wh;
+		commandList = new ArrayList<Command>();
 		loadCommandList();
 	}
 	
 	private void loadCommandList() {
-		commandList.add("add widget");
+		commandList.add(new AddTextWidgetCommand());
 		
 	}
 	
