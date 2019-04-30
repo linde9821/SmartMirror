@@ -17,7 +17,7 @@ public class SMPanel extends JPanel{
 	
 	public SMPanel() {
 		// TODO Auto-generated constructor stub
-		this.setBackground(Color.RED);
+		this.setBackground(Color.GREEN);
 	}
 
 	
