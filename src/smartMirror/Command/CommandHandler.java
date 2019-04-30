@@ -1,5 +1,6 @@
 package smartMirror.Command;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import smartMirror.Exception.SmartMirrorException;
@@ -20,7 +21,7 @@ public class CommandHandler {
 
 	}
 
-	public void command(String command) throws SmartMirrorException {
+	public void command(String command) throws SmartMirrorException, IOException {
 		boolean commandFound = false;
 		for (Command c : commandList) {
 			if (c.getCommand().equalsIgnoreCase(command)) {

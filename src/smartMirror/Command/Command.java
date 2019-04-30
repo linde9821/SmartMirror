@@ -1,5 +1,7 @@
 package smartMirror.Command;
 
+import java.io.IOException;
+
 import smartMirror.Exception.SmartMirrorException;
 
 public abstract class Command {
@@ -9,7 +11,7 @@ public abstract class Command {
 
 	protected String command;
 
-	abstract public void runCommand() throws SmartMirrorException;
+	abstract public void runCommand() throws SmartMirrorException, IOException;
 
 	public String getCommand() {
 		return command;

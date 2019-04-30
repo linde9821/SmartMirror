@@ -1,5 +1,6 @@
 package smartMirror.widget;
 
+import java.awt.EventQueue;
 import java.util.ArrayList;
 
 import smartMirror.Exception.SmartMirrorException;
@@ -28,6 +29,10 @@ public class WidgetHandler {
 		if (map.checkAreaFor(widgetToAdd.getArea(), false)) {
 			activeWidgets.add(widgetToAdd);
 			map.updateArea(widgetToAdd.getArea(), true);
+			
+			
+			new Thread(widgetToAdd).start();
+			
 			panel.repaint();
 		} else
 			throw new SmartMirrorException("Area bereits besetzt");
@@ -35,6 +40,10 @@ public class WidgetHandler {
 
 	public void deleteWidget(Widget widgetToDelete) {
 
+	}
+
+	public SMPanel getPanel() {
+		return panel;
 	}
 
 }

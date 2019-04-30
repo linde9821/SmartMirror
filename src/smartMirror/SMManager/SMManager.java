@@ -1,6 +1,10 @@
 package smartMirror.SMManager;
 
 import java.awt.EventQueue;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
@@ -9,50 +13,69 @@ import smartMirror.Command.CommandHandler;
 import smartMirror.Exception.SmartMirrorException;
 import smartMirror.SMPanel.SMPanel;
 import smartMirror.Settings.Settings;
-import smartMirror.widget.DateAndClockWidget;
 
-public class SMManager {
+class SMManager {
 
 	private static String input;
 	private static Scanner scanner;
+	private static BufferedReader reader;
 	private static Settings settings;
 	private static CommandHandler commandHandler;
 
-	private JFrame frame;
+	private static JFrame frame;
 	private static SMPanel panel;
 
-	public static void main(String[] args) {
-		scanner = new Scanner(System.in);
+	public static void main(String[] args) throws IOException, SmartMirrorException {
+		reader = new BufferedReader(new InputStreamReader(System.in));
+		//scanner = new Scanner(System.in);
 		input = "";
 
-		while (!configurate());
-		
+		while (!configurate())
+			;
+
 		System.out.println("Succesfully configurated");
 		runSM();
 		System.out.println("Succesfully started\nEnter (E)xit to stop the program");
 
-		while (!input.equalsIgnoreCase("e")) {
-			commandHandler = new CommandHandler(panel.getWidgetHandler());
-			input = scanner.nextLine();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
+		commandHandler = new CommandHandler(panel.getWidgetHandler());
+		while (!input.equalsIgnoreCase("e")) {
+			System.out.println("loop");
 			try {
+				//if (reader.readLine())
+						//scanner.hasNext())
+				input = reader.readLine();
+				reader.reset();
 
 				if (!input.equalsIgnoreCase("e")) {
 					commandHandler.command(input);
 				}
-
-				//panel.getWidgetHandler().addWidget(new DateAndClockWidget(10, 10, 100, 100, panel));
-
-			} catch (SmartMirrorException e) {
-				e.printStackTrace();
+				
+				/*
+				 * panel.getWidgetHandler().addWidget(new DateAndClockWidget(10, 10, 100, 100,
+				 * panel));
+				 * 
+				 * Thread t = new Thread(panel.getWidgetHandler().getActiveWidgets());
+				 * t.start();
+				 */
+			} catch (Exception e) {
+				//e.printStackTrace();
+				reader = new BufferedReader(new InputStreamReader(System.in));
 			}
-
 		}
+		
+		frame.dispose();
 	}
 
-	private static boolean configurate() {
+	private static boolean configurate() throws IOException {
 		System.out.println("Ini with default values? (y)es or (n)o: ");
-		input = scanner.nextLine();
+		input = reader.readLine();
 
 		if (input.equalsIgnoreCase("y")) {
 			settings = new Settings();
