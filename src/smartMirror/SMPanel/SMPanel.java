@@ -30,7 +30,7 @@ public class SMPanel extends JPanel{
 		return wh;
 	}
 	
-	public void paintcomponent(Graphics g) {
+	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		for(Widget w: activeWidgets) {
 			w.render(g);
