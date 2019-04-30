@@ -1,12 +1,15 @@
 package smartMirror.SMPanel;
 
 import java.awt.Color;
+import java.awt.Graphics;
 //Java-original
 import java.util.ArrayList;
+
 import javax.swing.JPanel;
 
 //Selfmade
-import smartMirror.widget.*;
+import smartMirror.widget.Widget;
+import smartMirror.widget.WidgetHandler;
 
 public class SMPanel extends JPanel{
 
@@ -25,5 +28,12 @@ public class SMPanel extends JPanel{
 	
 	public WidgetHandler getWidgetHandler(){
 		return wh;
+	}
+	
+	public void paintcomponent(Graphics g) {
+		super.paintComponent(g);
+		for(Widget w: activeWidgets) {
+			w.render(g);
+		}
 	}
 }

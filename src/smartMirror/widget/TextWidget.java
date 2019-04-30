@@ -1,5 +1,7 @@
 package smartMirror.widget;
 
+import java.awt.Graphics;
+
 import smartMirror.Location.Area;
 
 public class TextWidget extends Widget{	
@@ -10,20 +12,22 @@ public class TextWidget extends Widget{
 		
 	}
 
-	public TextWidget(int x, int y, int width, int hight) {
+	public TextWidget(int x, int y, int width, int hight, String givenText) {
 		Area widgetArea = new Area(x, y, width, hight);
+		testText = givenText;
 	}
 
 	@Override
 	public void run() {
 		
 	}
-	
-	public String getText(String givenText) {
-		
-		testText = givenText;
-		
-		return testText;
+
+	@Override
+	public void render(Graphics g) {
+		g.drawString(testText, 10, 10);
 	}
+
+	
+	
 	
 }

@@ -28,7 +28,7 @@ public class SMManager {
 		System.out.println("Succesfully started");
 		
 		input = scanner.nextLine();
-		panel.getWidgetHandler().addWidget(new TextWidget(0, 0, 100, 100));
+		panel.getWidgetHandler().addWidget(new TextWidget(0, 0, 100, 100, "Penis"));
 	}
 	
 	
