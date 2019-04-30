@@ -5,7 +5,8 @@ import java.util.Scanner;
 
 import javax.swing.JFrame;
 
-import smartMIrror.Settings.Settings;
+import smartMirror.SMPanel.SMPanel;
+import smartMirror.Settings.Settings;
 
 public class SMManager {
 
@@ -62,5 +63,8 @@ public class SMManager {
 		frame.getContentPane().setLayout(null);
 		
 		panel = new SMPanel();
+		panel.setBounds(0, 0, settings.getX(), settings.getY());
+		panel.setVisible(true);
+		frame.getContentPane().add(panel);
 	}
 }
