@@ -23,9 +23,11 @@ public class CommandHandler {
 	public void command(String command) throws SmartMirrorException {
 		boolean commandFound = false;
 		for (Command c : commandList) {
-			commandFound = true;
+			if (c.getCommand().equalsIgnoreCase(command)) {
+				commandFound = true;
 
-			c.runCommand();
+				c.runCommand();
+			}
 		}
 
 		if (!commandFound)

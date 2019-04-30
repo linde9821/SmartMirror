@@ -6,7 +6,6 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 
 import smartMirror.Command.CommandHandler;
-import smartMirror.DateAndTime.DateHandler;
 import smartMirror.Exception.SmartMirrorException;
 import smartMirror.SMPanel.SMPanel;
 import smartMirror.Settings.Settings;
@@ -26,23 +25,24 @@ public class SMManager {
 		scanner = new Scanner(System.in);
 		input = "";
 
-		while (!configurate())
-			;
+		while (!configurate());
+		
 		System.out.println("Succesfully configurated");
 		runSM();
 		System.out.println("Succesfully started\nEnter (E)xit to stop the program");
 
 		while (!input.equalsIgnoreCase("e")) {
-			// commandHandler = new CommandHandler(panel.getWidgetHandler());
+			commandHandler = new CommandHandler(panel.getWidgetHandler());
 			input = scanner.nextLine();
 
 			try {
-				/*
-				 * if (!input.equalsIgnoreCase("e")) { commandHandler.command(input); }
-				 */
 
-				panel.getWidgetHandler().addWidget(new DateAndClockWidget(10, 10, 100, 100));
-				
+				if (!input.equalsIgnoreCase("e")) {
+					commandHandler.command(input);
+				}
+
+				//panel.getWidgetHandler().addWidget(new DateAndClockWidget(10, 10, 100, 100, panel));
+
 			} catch (SmartMirrorException e) {
 				e.printStackTrace();
 			}
