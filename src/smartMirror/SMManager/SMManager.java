@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import javax.swing.JFrame;
 
+import smartMirror.Exception.SmartMirrorException;
 import smartMirror.SMPanel.SMPanel;
 import smartMirror.Settings.Settings;
 import smartMirror.widget.TextWidget;
@@ -14,6 +15,7 @@ public class SMManager {
 	private static String input;
 	private static Scanner scanner;
 	private static Settings settings;
+	private static CommandHandler commandHandler;
 	
 	private JFrame frame;
 	private static SMPanel panel;
@@ -25,10 +27,23 @@ public class SMManager {
 		while (!configurate());
 		System.out.println("Succesfully configurated");
 		runSM();
-		System.out.println("Succesfully started");
+		System.out.println("Succesfully started\nEnter (E)xit to stop the program");
 		
-		input = scanner.nextLine();
-		panel.getWidgetHandler().addWidget(new TextWidget(0, 0, 100, 100, "Penis"));
+		while (!input.equalsIgnoreCase("e")) {
+			commandHandler = new CommandHandler(panel.getWidgetHandler());
+			input = scanner.nextLine();
+				
+			try {
+				if (!input.equalsIgnoreCase("e")) {
+					commandHandler.command(input);
+				}
+				
+			}catch (SmartMirrorException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		//panel.getWidgetHandler().addWidget(new TextWidget(0, 0, 100, 100, input));
 	}
 	
 	

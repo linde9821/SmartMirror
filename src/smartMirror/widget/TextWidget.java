@@ -8,6 +8,7 @@ import smartMirror.Location.Area;
 public class TextWidget extends Widget{	
 	
 	String testText;
+	Area widgetArea = new Area();
 	
 	public TextWidget() {
 		
@@ -25,8 +26,8 @@ public class TextWidget extends Widget{
 
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.MAGENTA);
-		g.drawRect(10, 10, 20, 5);
+		g.setColor(Color.BLACK);
+		g.drawRect(widgetArea.getxCoord(), widgetArea.getyCoord(), widgetArea.getWidth(), widgetArea.getHigth());
 		g.drawString(testText, 10, 10);
 	}
 		
