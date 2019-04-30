@@ -1,4 +1,4 @@
-package smartMIrror.Settings;
+package smartMirror.Settings;
 
 public class Settings {
 	int x, y;

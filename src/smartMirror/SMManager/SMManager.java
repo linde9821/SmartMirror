@@ -1,4 +1,4 @@
-package smartMIrror.SMManager;
+package smartMirror.SMManager;
 
 import java.awt.EventQueue;
 import java.util.Scanner;
