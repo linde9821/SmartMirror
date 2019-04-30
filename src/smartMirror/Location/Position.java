@@ -23,5 +23,10 @@ public class Position {
 	public Position() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Position(int x, int y) {
+		this.xCoord = x;
+		this.yCoord = y;
+	}
 
 }

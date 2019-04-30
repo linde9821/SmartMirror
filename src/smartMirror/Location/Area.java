@@ -23,5 +23,11 @@ public class Area extends Position{
 	public Area() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Area(int x, int y, int width, int hight) {
+		super(x, y);
+		this.width = width;
+		this.higth = higth;
+	}
 
 }
