@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 
 import smartMirror.SMPanel.SMPanel;
 import smartMirror.Settings.Settings;
+import smartMirror.widget.TextWidget;
 
 public class SMManager {
 
@@ -15,7 +16,7 @@ public class SMManager {
 	private static Settings settings;
 	
 	private JFrame frame;
-	private SMPanel panel;
+	private static SMPanel panel;
 	
 	public static void main(String[] args) {
 		scanner = new Scanner(System.in);
@@ -25,6 +26,9 @@ public class SMManager {
 		System.out.println("Succesfully configurated");
 		runSM();
 		System.out.println("Succesfully started");
+		
+		input = scanner.nextLine();
+		panel.getWidgetHandler().addWidget(new TextWidget(0, 0, 100, 100));
 	}
 	
 	

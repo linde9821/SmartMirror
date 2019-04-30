@@ -10,16 +10,20 @@ import smartMirror.widget.*;
 
 public class SMPanel extends JPanel{
 
-	ArrayList<Widget> activeWidgets = new ArrayList<Widget>();
-	ArrayList<Widget> passiveWidgets = new ArrayList<Widget>();
+	ArrayList<Widget> activeWidgets;
+	ArrayList<Widget> passiveWidgets;
 	
-	WidgetHandler wh = new WidgetHandler();
+	WidgetHandler wh;
 	
 	public SMPanel() {
-		// TODO Auto-generated constructor stub
 		setBackground(Color.RED);
+		activeWidgets = new ArrayList<Widget>();
+		passiveWidgets = new ArrayList<Widget>();
+		wh = new WidgetHandler(activeWidgets, passiveWidgets, this);
 	}
 
 	
-	
+	public WidgetHandler getWidgetHandler(){
+		return wh;
+	}
 }
