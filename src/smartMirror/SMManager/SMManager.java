@@ -6,10 +6,11 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 
 import smartMirror.Command.CommandHandler;
+import smartMirror.DateAndTime.DateHandler;
 import smartMirror.Exception.SmartMirrorException;
 import smartMirror.SMPanel.SMPanel;
 import smartMirror.Settings.Settings;
-import smartMirror.widget.TextWidget;
+import smartMirror.widget.DateAndClockWidget;
 
 public class SMManager {
 
@@ -40,9 +41,8 @@ public class SMManager {
 				 * if (!input.equalsIgnoreCase("e")) { commandHandler.command(input); }
 				 */
 
-				panel.getWidgetHandler().addWidget(new TextWidget(10, 10, 100, 100, input));
-				panel.getWidgetHandler().addWidget(new TextWidget(10, 170, 100, 100, input));
-
+				panel.getWidgetHandler().addWidget(new DateAndClockWidget(10, 10, 100, 100));
+				
 			} catch (SmartMirrorException e) {
 				e.printStackTrace();
 			}

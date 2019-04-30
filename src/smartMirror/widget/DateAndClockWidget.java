@@ -11,8 +11,9 @@ public class DateAndClockWidget extends Widget {
 
 	DateHandler dh;
 	
-	public DateAndClockWidget(int x, int y, int width, int hight, DateHandler dh) {
+	public DateAndClockWidget(int x, int y, int width, int hight) {
 		super(new Area(x, y, width, hight));
+		dh = new DateHandler();
 	}
 	
 	public void render(Graphics g) {
