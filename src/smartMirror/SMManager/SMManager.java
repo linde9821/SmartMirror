@@ -1,16 +1,14 @@
 package smartMirror.SMManager;
 
 import java.awt.EventQueue;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
 
 import smartMirror.Command.CommandHandler;
 import smartMirror.Exception.SmartMirrorException;
+import smartMirror.File.LogHandler;
 import smartMirror.SMPanel.SMPanel;
 import smartMirror.Settings.Settings;
 
@@ -20,6 +18,8 @@ class SMManager {
 	private static Scanner scanner;
 	private static Settings settings;
 	private static CommandHandler commandHandler;
+	private static LogHandler log;
+
 
 	private static JFrame frame;
 	private static SMPanel panel;
@@ -28,9 +28,8 @@ class SMManager {
 		scanner = new Scanner(System.in);
 		input = "";
 
-		while (!configurate())
-			;
-
+		while (!configurate());
+		
 		System.out.println("Succesfully configurated");
 		runSM();
 		System.out.println("Succesfully started\nEnter (E)xit to stop the program");
@@ -50,7 +49,7 @@ class SMManager {
 			try {
 				if (scanner.hasNext()) {
 					input = scanner.nextLine();
-					scanner.close();
+					//scanner.close();
 					// System.out.println("out: " + input);
 
 					if (!input.equalsIgnoreCase("e")) {
@@ -79,13 +78,16 @@ class SMManager {
 
 		if (input.equalsIgnoreCase("y")) {
 			settings = new Settings();
+			createLog();
 			return true;
 		} else if (input.equalsIgnoreCase("n")) {
+			createLog();
 			return true;
 		} else {
 			System.out.println("Unknown input");
 			return false;
 		}
+		
 	}
 
 	private static void runSM() {
@@ -111,5 +113,11 @@ class SMManager {
 		panel.setBounds(0, 0, settings.getX(), settings.getY());
 		panel.setVisible(true);
 		frame.getContentPane().add(panel);
+	}
+	
+	public static void createLog() throws IOException {
+		log  = new LogHandler();
+		log.createLogFile();
+		log.addTextToLogFile(log.CREATED, "LogFile wurde erfolgreich erstellt!");
 	}
 }
