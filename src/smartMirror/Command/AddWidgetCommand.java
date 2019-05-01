@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import smartMirror.Exception.SmartMirrorException;
+import smartMirror.File.LogHandler;
 import smartMirror.widget.DateAndClockWidget;
 import smartMirror.widget.TextWidget;
 import smartMirror.widget.WidgetHandler;
@@ -14,7 +15,7 @@ public class AddWidgetCommand extends Command {
 
 	private WidgetHandler wh;
 
-	public AddWidgetCommand(WidgetHandler wh) {
+	public AddWidgetCommand(WidgetHandler wh, LogHandler log) {
 		super("add widget");
 		this.wh = wh;
 	}

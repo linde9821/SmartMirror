@@ -4,20 +4,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import smartMirror.Exception.SmartMirrorException;
+import smartMirror.File.LogHandler;
 import smartMirror.widget.WidgetHandler;
 
 public class CommandHandler {
 	private ArrayList<Command> commandList;
 	private WidgetHandler wh;
+	
+	public LogHandler log;
 
-	public CommandHandler(WidgetHandler wh) {
+	public CommandHandler(WidgetHandler wh, LogHandler log) {
 		this.wh = wh;
+		this.log = log;
 		commandList = new ArrayList<Command>();
 		loadCommandList();
 	}
 
 	private void loadCommandList() {
-		commandList.add(new AddWidgetCommand(wh));
+		commandList.add(new AddWidgetCommand(wh, log));
 
 	}
 

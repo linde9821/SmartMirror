@@ -41,7 +41,7 @@ class SMManager {
 			e1.printStackTrace();
 		}
 
-		commandHandler = new CommandHandler(panel.getWidgetHandler());
+		commandHandler = new CommandHandler(panel.getWidgetHandler(), log);
 		while (!input.equalsIgnoreCase("e")) {
 			System.out.println();
 			scanner = new Scanner(System.in);
@@ -49,20 +49,11 @@ class SMManager {
 			try {
 				if (scanner.hasNext()) {
 					input = scanner.nextLine();
-					//scanner.close();
-					// System.out.println("out: " + input);
+					scanner.close();
 
 					if (!input.equalsIgnoreCase("e")) {
 						commandHandler.command(input);
 					}
-
-					/*
-					 * panel.getWidgetHandler().addWidget(new DateAndClockWidget(10, 10, 100, 100,
-					 * panel));
-					 * 
-					 * Thread t = new Thread(panel.getWidgetHandler().getActiveWidgets());
-					 * t.start();
-					 */
 				}
 			} catch (SmartMirrorException e) {
 				e.printStackTrace();
@@ -81,7 +72,6 @@ class SMManager {
 			createLog();
 			return true;
 		} else if (input.equalsIgnoreCase("n")) {
-			createLog();
 			return true;
 		} else {
 			System.out.println("Unknown input");
@@ -118,6 +108,6 @@ class SMManager {
 	public static void createLog() throws IOException {
 		log  = new LogHandler();
 		log.createLogFile();
-		log.addTextToLogFile(log.CREATED, "LogFile wurde erfolgreich erstellt!");
+		log.addTextToLogFile(log.CREATED, "New LogFile created!");
 	}
 }
