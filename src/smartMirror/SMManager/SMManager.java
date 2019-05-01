@@ -18,16 +18,14 @@ class SMManager {
 
 	private static String input;
 	private static Scanner scanner;
-	private static BufferedReader reader;
 	private static Settings settings;
 	private static CommandHandler commandHandler;
 
 	private static JFrame frame;
 	private static SMPanel panel;
 
-	public static void main(String[] args) throws IOException, SmartMirrorException {
-		reader = new BufferedReader(new InputStreamReader(System.in));
-		//scanner = new Scanner(System.in);
+	public static void main(String[] args) throws IOException {
+		scanner = new Scanner(System.in);
 		input = "";
 
 		while (!configurate())
@@ -46,36 +44,38 @@ class SMManager {
 
 		commandHandler = new CommandHandler(panel.getWidgetHandler());
 		while (!input.equalsIgnoreCase("e")) {
-			System.out.println("loop");
+			System.out.println();
+			scanner = new Scanner(System.in);
+			scanner.reset();
 			try {
-				//if (reader.readLine())
-						//scanner.hasNext())
-				input = reader.readLine();
-				reader.reset();
+				if (scanner.hasNext()) {
+					input = scanner.nextLine();
+					scanner.close();
+					// System.out.println("out: " + input);
 
-				if (!input.equalsIgnoreCase("e")) {
-					commandHandler.command(input);
+					if (!input.equalsIgnoreCase("e")) {
+						commandHandler.command(input);
+					}
+
+					/*
+					 * panel.getWidgetHandler().addWidget(new DateAndClockWidget(10, 10, 100, 100,
+					 * panel));
+					 * 
+					 * Thread t = new Thread(panel.getWidgetHandler().getActiveWidgets());
+					 * t.start();
+					 */
 				}
-				
-				/*
-				 * panel.getWidgetHandler().addWidget(new DateAndClockWidget(10, 10, 100, 100,
-				 * panel));
-				 * 
-				 * Thread t = new Thread(panel.getWidgetHandler().getActiveWidgets());
-				 * t.start();
-				 */
-			} catch (Exception e) {
-				//e.printStackTrace();
-				reader = new BufferedReader(new InputStreamReader(System.in));
+			} catch (SmartMirrorException e) {
+				e.printStackTrace();
 			}
 		}
-		
+
 		frame.dispose();
 	}
 
 	private static boolean configurate() throws IOException {
 		System.out.println("Ini with default values? (y)es or (n)o: ");
-		input = reader.readLine();
+		input = scanner.next();
 
 		if (input.equalsIgnoreCase("y")) {
 			settings = new Settings();

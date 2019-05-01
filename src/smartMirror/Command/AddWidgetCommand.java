@@ -1,8 +1,7 @@
 package smartMirror.Command;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Scanner;
 
 import smartMirror.Exception.SmartMirrorException;
 import smartMirror.widget.DateAndClockWidget;
@@ -23,38 +22,33 @@ public class AddWidgetCommand extends Command {
 	@Override
 	public void runCommand() throws SmartMirrorException, IOException{
 		System.out.println("what kind of widget: ");
-		//Scanner scanner = new Scanner(System.in);
-		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		Scanner scanner = new Scanner(System.in);
 		String input = "";
 		
-		//input = scanner.nextLine();
-		input = reader.readLine();
+
+		input = scanner.nextLine();
+		
 
 		switch (input) {
 		case (TEXTWIDGET): {
 			System.out.println("Textwidget xCord: ");
-			//input = scanner.nextLine();
-			input = reader.readLine();
+			input = scanner.nextLine();
 			int x = Integer.parseInt(input);
 
 			System.out.println("Textwidget yCord: ");
-			//input = scanner.nextLine();
-			input = reader.readLine();
+			input = scanner.nextLine();
 			int y = Integer.parseInt(input);
 
 			System.out.println("Textwidget width: ");
-			//input = scanner.nextLine();
-			input = reader.readLine();
+			input = scanner.nextLine();
 			int width = Integer.parseInt(input);
 
 			System.out.println("Textwidget height: ");
-			//input = scanner.nextLine();
-			input = reader.readLine();
+			input = scanner.nextLine();
 			int height = Integer.parseInt(input);
 
 			System.out.println("Textwidget text: ");
-			//input = scanner.nextLine();
-			input = reader.readLine();
+			input = scanner.nextLine();
 
 			wh.addWidget(new TextWidget(x, y, width, height, input));
 		}
@@ -62,23 +56,19 @@ public class AddWidgetCommand extends Command {
 
 		case (DATEANDCLOCKWIDGET): {
 			System.out.println("Textwidget xCord: ");
-			//input = scanner.nextLine();
-			input = reader.readLine();
+			input = scanner.nextLine();
 			int x = Integer.parseInt(input);
 
 			System.out.println("Textwidget yCord: ");
-			//input = scanner.nextLine();
-			input = reader.readLine();
+			input = scanner.nextLine();
 			int y = Integer.parseInt(input);
 
 			System.out.println("Textwidget width: ");
-			//input = scanner.nextLine();
-			input = reader.readLine();
+			input = scanner.nextLine();
 			int width = Integer.parseInt(input);
 
 			System.out.println("Textwidget height: ");
-			//input = scanner.nextLine();
-			input = reader.readLine();
+			input = scanner.nextLine();
 			int height = Integer.parseInt(input);
 
 			wh.addWidget(new DateAndClockWidget(x, y, width, height, wh.getPanel()));
@@ -86,14 +76,12 @@ public class AddWidgetCommand extends Command {
 			break;
 
 		default: {
-			//scanner.close();
-			reader.close();
+			scanner.close();
 			throw new SmartMirrorException("Unknown Widget");
 
 		}
 		}
-		reader.close();
-		//scanner.close();
+		scanner.close();
 	}
 
 }
