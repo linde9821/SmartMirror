@@ -99,9 +99,12 @@ class SMManager {
 					commandHandler.command(input);
 
 			} while (!input.equalsIgnoreCase("e"));
-		} catch (SmartMirrorException | IOException e) {
+		} catch (SmartMirrorException e) {
 			e.printStackTrace();
-		} 
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private static void createLog() throws IOException {
