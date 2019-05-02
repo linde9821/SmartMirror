@@ -3,16 +3,17 @@ package smartMirror.Command;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import smartMirror.Command.Commands.AddAdvancedClockCommand;
 import smartMirror.Command.Commands.AddDateAndClockWidgetCommand;
 import smartMirror.Command.Commands.AddTextwidgetCommand;
 import smartMirror.Command.Commands.AddWidgetCommand;
 import smartMirror.Command.Commands.ChangeSettingCommand;
+import smartMirror.Command.Commands.ExitCommand;
 import smartMirror.Command.Commands.HelpCommand;
 import smartMirror.Command.Commands.xDimCommand;
 import smartMirror.Command.Commands.yDimCommand;
 import smartMirror.Exception.SmartMirrorException;
 import smartMirror.File.LogHandler;
-import smartMirror.Settings.ExitCommand;
 import smartMirror.widget.WidgetHandler;
 
 public class CommandHandler {
@@ -32,6 +33,7 @@ public class CommandHandler {
 		commandList.add(new AddWidgetCommand(wh));
 		commandList.add(new AddTextwidgetCommand(wh));
 		commandList.add(new AddDateAndClockWidgetCommand(wh));
+		commandList.add(new AddAdvancedClockCommand(wh));
 
 		commandList.add(new ChangeSettingCommand());
 		commandList.add(new xDimCommand());

@@ -11,6 +11,7 @@ import smartMirror.Exception.SmartMirrorException;
 import smartMirror.File.LogHandler;
 import smartMirror.SMPanel.SMPanel;
 import smartMirror.Settings.Settings;
+import smartMirror.widget.AdvancedClock;
 
 public class SMManager {
 	private static Settings settings;
@@ -91,6 +92,8 @@ public class SMManager {
 		System.out.println("Commandhandler online:");
 		Scanner scanner = new Scanner(System.in);
 		String input;
+		
+		autoloadWidgets();
 
 		while (true) {
 			System.out.print("/: ");
@@ -128,5 +131,13 @@ public class SMManager {
 
 	public static void changexDim(int xdim) {
 		changeDim(xdim, frame.getY());
+	}
+	
+	private static void autoloadWidgets() {
+		try {
+			panel.getWidgetHandler().addWidget(new AdvancedClock(170, 370, 200, 220, panel));
+		} catch (SmartMirrorException e) {
+			e.printStackTrace();
+		}
 	}
 }
