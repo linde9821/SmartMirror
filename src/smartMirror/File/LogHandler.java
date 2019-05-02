@@ -20,19 +20,22 @@ public class LogHandler {
 	
 	public LogHandler() {
 		dh = new DateHandler();
+		
+		createFolder();
+		
+		
 	}
 
 	
 	public void createLogFile() throws IOException {
-		fileName =  "C:/Users/Marvi/git/SmartMirror/log/started_at_" + dh.getFullDate() +".log";
-		File logFile = new File( fileName);
+		fileName = "log" + File.separator + "started_at_" + dh.getFullDate() +".log";
+		File logFile = new File(fileName);
 		if(!logFile.exists()) {
 			logFile.createNewFile();
 		}		
 	}
 	
 	public void addTextToLogFile(String message, String text) throws IOException {
-
 		OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(this.fileName, true), "UTF-8");
 		BufferedWriter fw = new BufferedWriter(out);
 
@@ -41,7 +44,13 @@ public class LogHandler {
 		fw.write("[" + message + "]" + "\t");// write a message and a tab
 		fw.write("[" + text + "]" + "\n");// write the text and a new line
 		fw.close();
+		
 	}
 	
-
+	private void createFolder() {
+		File logFolder = new File("log");
+		
+		logFolder.mkdir();
+	}
+	
 }
