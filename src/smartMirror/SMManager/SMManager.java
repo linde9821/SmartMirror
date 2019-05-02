@@ -91,20 +91,20 @@ class SMManager {
 		Scanner scanner = new Scanner(System.in);
 		String input = null;
 
-		try {
 			do {
 				input = scanner.nextLine();
 
+				try {
 				if (!input.equalsIgnoreCase("e"))
 					commandHandler.command(input);
+			} catch (SmartMirrorException e) {
+				e.printStackTrace();
+				System.out.println(e.getMessage());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
 			} while (!input.equalsIgnoreCase("e"));
-		} catch (SmartMirrorException e) {
-			e.printStackTrace();
-			System.out.println(e.getMessage());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	private static void createLog() throws IOException {

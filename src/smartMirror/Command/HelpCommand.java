@@ -2,17 +2,17 @@ package smartMirror.Command;
 
 import smartMirror.Exception.SmartMirrorException;
 
-public class GeneralCommand extends Command {
+public class HelpCommand extends Command {
 
-	public GeneralCommand(String command) {
-		super(command);
-		// TODO Auto-generated constructor stub
+	public HelpCommand() {
+		super("help");
+		super.addAlias("?");
 	}
 
 	@Override
 	public void runCommand() throws SmartMirrorException {
 		// TODO Auto-generated method stub
-
+		System.out.println("send help!");
 	}
 
 }

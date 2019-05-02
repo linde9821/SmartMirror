@@ -21,14 +21,12 @@ public class AddWidgetCommand extends Command {
 	}
 
 	@Override
-	public void runCommand() throws SmartMirrorException{
+	public void runCommand() throws SmartMirrorException {
 		System.out.println("what kind of widget: ");
 		Scanner scanner = new Scanner(System.in);
 		String input = "";
-		
 
 		input = scanner.nextLine();
-		
 
 		switch (input) {
 		case (TEXTWIDGET): {
@@ -77,12 +75,10 @@ public class AddWidgetCommand extends Command {
 			break;
 
 		default: {
-			scanner.close();
 			throw new SmartMirrorException("Unknown Widget");
 
 		}
 		}
-		scanner.close();
 	}
 
 }

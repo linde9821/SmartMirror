@@ -22,7 +22,7 @@ public class CommandHandler {
 
 	private void loadCommandList() {
 		commandList.add(new AddWidgetCommand(wh, log));
-		
+		commandList.add(new HelpCommand());
 	}
 
 	public void command(String command) throws SmartMirrorException, IOException {
@@ -34,6 +34,8 @@ public class CommandHandler {
 				c.runCommand();
 			}
 		}
+		
+		
 
 		if (!commandFound)
 			throw new SmartMirrorException(command + " is a unknown command. Known Commands: " + getKnownCommands());
