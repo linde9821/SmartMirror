@@ -8,7 +8,7 @@ import smartMirror.File.LogHandler;
 import smartMirror.widget.WidgetHandler;
 
 public class CommandHandler {
-	private ArrayList<Command> commandList;
+	private static ArrayList<Command> commandList;
 	private WidgetHandler wh;
 	
 	public LogHandler log;
@@ -28,7 +28,7 @@ public class CommandHandler {
 	public void command(String command) throws SmartMirrorException, IOException {
 		boolean commandFound = false;
 		for (Command c : commandList) {
-			if (c.getCommand().equalsIgnoreCase(command)) {
+			if (c.checkForMatch(command)) {
 				commandFound = true;
 
 				c.runCommand();
@@ -45,11 +45,11 @@ public class CommandHandler {
 		System.out.println(getKnownCommands());
 	}
 
-	public String getKnownCommands() {
+	public static String getKnownCommands() {
 		StringBuilder strBld = new StringBuilder();
 
 		for (Command c : commandList) {
-			strBld.append(c.getCommand() + ",");
+			strBld.append(c.getCommand() + "\n");
 		}
 
 		return strBld.toString();

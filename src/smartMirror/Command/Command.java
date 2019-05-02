@@ -23,6 +23,15 @@ public abstract class Command {
 		alias.add(newAlias);
 	}
 	
+	public boolean checkForMatch(String input) {
+		if (command.equalsIgnoreCase(input)) {
+			return true;
+		}else if (getAllAllias().contains(input.toLowerCase()))
+			return true;
+		else
+			return false;
+	}
+	
 	public String getAllAllias() {
 		if (alias.size() == 0)
 			return "no known alias";
@@ -36,5 +45,4 @@ public abstract class Command {
 			return strBf.toString();
 		}
 	}
-
 }

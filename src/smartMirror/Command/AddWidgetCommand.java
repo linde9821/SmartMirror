@@ -1,6 +1,5 @@
 package smartMirror.Command;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 import smartMirror.Exception.SmartMirrorException;
@@ -17,6 +16,7 @@ public class AddWidgetCommand extends Command {
 
 	public AddWidgetCommand(WidgetHandler wh, LogHandler log) {
 		super("add widget");
+		super.addAlias("add");
 		this.wh = wh;
 	}
 

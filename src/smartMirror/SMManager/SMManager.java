@@ -88,10 +88,12 @@ class SMManager {
 
 	private static void startManager() {
 		commandHandler = new CommandHandler(panel.getWidgetHandler(), log);
+		System.out.println("Commandhandler online:");
 		Scanner scanner = new Scanner(System.in);
 		String input = null;
 
 			do {
+				System.out.print("/:");
 				input = scanner.nextLine();
 
 				try {
