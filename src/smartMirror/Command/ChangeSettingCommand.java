@@ -6,7 +6,7 @@ import smartMirror.Exception.SmartMirrorException;
 
 public class ChangeSettingCommand extends Command {
 	public static final String xDim = "xDim";
-	
+	public static final String yDim = "yDim";
 
 	public ChangeSettingCommand() {
 		super("change setting");
