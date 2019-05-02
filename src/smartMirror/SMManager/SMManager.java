@@ -18,6 +18,7 @@ public class SMManager {
 	private static Settings settings;
 	private static CommandHandler commandHandler;
 	private static LogHandler log;
+	private static SettingsFileHandler sfl;
 
 	private static JFrame frame;
 	private static SMPanel panel;
@@ -116,8 +117,6 @@ public class SMManager {
 		log = new LogHandler();
 		log.createLogFile();
 		log.addTextToLogFile(log.CREATED, "New LogFile created!");
-		SettingsFileHandler s = new SettingsFileHandler();
-		s.createSettingFile();
 	}
 
 	public static void changeDim(int xdim, int ydim) {
@@ -125,6 +124,7 @@ public class SMManager {
 		settings.setX(xdim);
 		settings.setY(ydim);
 		panel.setBounds(0, 0, settings.getX(), settings.getY());
+		
 	}
 
 	public static void changeyDim(int ydim) {
