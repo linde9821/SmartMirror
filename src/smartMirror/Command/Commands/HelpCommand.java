@@ -1,5 +1,7 @@
-package smartMirror.Command;
+package smartMirror.Command.Commands;
 
+import smartMirror.Command.Command;
+import smartMirror.Command.CommandHandler;
 import smartMirror.Exception.SmartMirrorException;
 
 public class HelpCommand extends Command {

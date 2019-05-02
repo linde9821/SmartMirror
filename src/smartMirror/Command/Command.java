@@ -13,35 +13,35 @@ public abstract class Command {
 	protected String command;
 	protected ArrayList<String> alias;
 
-	abstract public void runCommand() throws SmartMirrorException;
+	public abstract void runCommand() throws SmartMirrorException;
 
 	public String getCommand() {
-		return command;
+		return command + alias;
 	}
-	
+
 	protected void addAlias(String newAlias) {
 		alias.add(newAlias);
 	}
-	
+
 	public boolean checkForMatch(String input) {
 		if (command.equalsIgnoreCase(input)) {
 			return true;
-		}else if (getAllAllias().contains(input.toLowerCase()))
+		} else if (getAllAllias().contains(input.toLowerCase()))
 			return true;
 		else
 			return false;
 	}
-	
+
 	public String getAllAllias() {
 		if (alias.size() == 0)
 			return "no known alias";
 		else {
 			StringBuffer strBf = new StringBuffer();
-			
+
 			for (String a : alias) {
 				strBf.append(a);
 			}
-			
+
 			return strBf.toString();
 		}
 	}

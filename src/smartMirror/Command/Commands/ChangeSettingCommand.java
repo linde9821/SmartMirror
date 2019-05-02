@@ -1,7 +1,8 @@
-package smartMirror.Command;
+package smartMirror.Command.Commands;
 
 import java.util.Scanner;
 
+import smartMirror.Command.Command;
 import smartMirror.Exception.SmartMirrorException;
 
 public class ChangeSettingCommand extends Command {
@@ -18,7 +19,21 @@ public class ChangeSettingCommand extends Command {
 		Scanner scanner = new Scanner(System.in);
 		String input = "";
 		
-		
+		switch (input) {
+		case (xDim): {
+			new xDimCommand().runCommand();
+		}
+			break;
+
+		case (yDim): {
+			new yDimCommand().runCommand();
+		}
+			break;
+
+		default: {
+			throw new SmartMirrorException("Unknown Setting");
+		}
+		}
 	}
 
 }

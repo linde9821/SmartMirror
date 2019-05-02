@@ -12,7 +12,7 @@ import smartMirror.File.LogHandler;
 import smartMirror.SMPanel.SMPanel;
 import smartMirror.Settings.Settings;
 
-class SMManager {
+public class SMManager {
 	private static Settings settings;
 	private static CommandHandler commandHandler;
 	private static LogHandler log;
@@ -90,15 +90,14 @@ class SMManager {
 		commandHandler = new CommandHandler(panel.getWidgetHandler(), log);
 		System.out.println("Commandhandler online:");
 		Scanner scanner = new Scanner(System.in);
-		String input = null;
+		String input;
 
-			do {
-				System.out.print("/:");
-				input = scanner.nextLine();
+		while (true) {
+			System.out.print("/: ");
+			input = scanner.nextLine();
 
-				try {
-				if (!input.equalsIgnoreCase("e"))
-					commandHandler.command(input);
+			try {
+				commandHandler.command(input);
 			} catch (SmartMirrorException e) {
 				e.printStackTrace();
 				System.out.println(e.getMessage());
@@ -106,12 +105,28 @@ class SMManager {
 				e.printStackTrace();
 			}
 
-			} while (!input.equalsIgnoreCase("e"));
+		}
 	}
 
 	private static void createLog() throws IOException {
 		log = new LogHandler();
 		log.createLogFile();
 		log.addTextToLogFile(log.CREATED, "New LogFile created!");
+	}
+
+	public static void changeDim(int xdim, int ydim) {
+		frame.setBounds(100, 100, xdim, ydim);
+		settings.setX(xdim);
+		settings.setY(ydim);
+		panel.setBounds(0, 0, settings.getX(), settings.getY());
+	}
+
+	public static void changeyDim(int ydim) {
+		changeDim(frame.getX(), ydim);
+
+	}
+
+	public static void changexDim(int xdim) {
+		changeDim(xdim, frame.getY());
 	}
 }
