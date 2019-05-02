@@ -18,30 +18,30 @@ public abstract class Command {
 	public String getCommand() {
 		return command;
 	}
-	
+
 	protected void addAlias(String newAlias) {
 		alias.add(newAlias);
 	}
-	
+
 	public boolean checkForMatch(String input) {
 		if (command.equalsIgnoreCase(input)) {
 			return true;
-		}else if (getAllAllias().contains(input.toLowerCase()))
+		} else if (getAllAllias().contains(input.toLowerCase()))
 			return true;
 		else
 			return false;
 	}
-	
+
 	public String getAllAllias() {
 		if (alias.size() == 0)
 			return "no known alias";
 		else {
 			StringBuffer strBf = new StringBuffer();
-			
+
 			for (String a : alias) {
 				strBf.append(a);
 			}
-			
+
 			return strBf.toString();
 		}
 	}

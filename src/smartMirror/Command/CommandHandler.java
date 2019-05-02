@@ -10,7 +10,7 @@ import smartMirror.widget.WidgetHandler;
 public class CommandHandler {
 	private static ArrayList<Command> commandList;
 	private WidgetHandler wh;
-	
+
 	public LogHandler log;
 
 	public CommandHandler(WidgetHandler wh, LogHandler log) {
@@ -34,8 +34,6 @@ public class CommandHandler {
 				c.runCommand();
 			}
 		}
-		
-		
 
 		if (!commandFound)
 			throw new SmartMirrorException(command + " is a unknown command. Known Commands: " + getKnownCommands());
