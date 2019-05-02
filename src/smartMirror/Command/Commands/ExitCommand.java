@@ -1,4 +1,4 @@
-package smartMirror.Settings;
+package smartMirror.Command.Commands;
 
 import smartMirror.Command.Command;
 import smartMirror.Exception.SmartMirrorException;
