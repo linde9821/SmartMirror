@@ -108,6 +108,6 @@ class SMManager {
 	public static void createLog() throws IOException {
 		log  = new LogHandler();
 		log.createLogFile();
-		log.addTextToLogFile(log.CREATED, "New LogFile created!");
+		log.addTextToLogFile(log.CREATED, "New LogFile created");
 	}
 }
