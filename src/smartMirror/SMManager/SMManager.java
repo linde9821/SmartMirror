@@ -53,7 +53,7 @@ class SMManager {
 	}
 
 	private static boolean configurate() {
-		System.out.println("Ini with default values? (y)es or (n)o: ");
+		System.out.println("Ini SmartMirror with default values? (y)es or (n)o: ");
 		Scanner scanner = new Scanner(System.in);
 		String input = scanner.next();
 
