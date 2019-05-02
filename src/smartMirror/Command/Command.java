@@ -13,10 +13,10 @@ public abstract class Command {
 	protected String command;
 	protected ArrayList<String> alias;
 
-	abstract public void runCommand() throws SmartMirrorException;
+	public abstract void runCommand() throws SmartMirrorException;
 
 	public String getCommand() {
-		return command;
+		return command + alias;
 	}
 
 	protected void addAlias(String newAlias) {

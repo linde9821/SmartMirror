@@ -15,18 +15,15 @@ import smartMirror.widget.WidgetHandler;
 public class SMPanel extends JPanel{
 
 	ArrayList<Widget> activeWidgets;
-	ArrayList<Widget> passiveWidgets;
 	
 	WidgetHandler wh;
 	
 	public SMPanel(Settings settings) {
 		setBackground(Color.BLACK);
 		activeWidgets = new ArrayList<Widget>();
-		passiveWidgets = new ArrayList<Widget>();
-		wh = new WidgetHandler(activeWidgets, passiveWidgets, this, settings);
+		wh = new WidgetHandler(activeWidgets, this, settings);
 	}
 
-	
 	public WidgetHandler getWidgetHandler(){
 		return wh;
 	}

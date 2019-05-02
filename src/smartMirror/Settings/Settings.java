@@ -23,6 +23,4 @@ public class Settings {
 	public void setY(int y) {
 		this.y = y;
 	}
-	
-	
 }

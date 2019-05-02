@@ -10,15 +10,13 @@ import smartMirror.Settings.Settings;
 
 public class WidgetHandler {
 	ArrayList<Widget> activeWidgets;
-	ArrayList<Widget> passiveWidgets;
 	SMPanel panel;
 	Settings settings;
 	Map map;
 
-	public WidgetHandler(ArrayList<Widget> activeWidgets, ArrayList<Widget> passiveWidgets, SMPanel panel,
+	public WidgetHandler(ArrayList<Widget> activeWidgets, SMPanel panel,
 			Settings settings) {
 		this.activeWidgets = activeWidgets;
-		this.passiveWidgets = passiveWidgets;
 		this.panel = panel;
 		this.settings = settings;
 
