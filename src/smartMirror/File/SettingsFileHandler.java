@@ -15,37 +15,27 @@ public class SettingsFileHandler {
 	DateHandler dh;
 	String fileName;
 	LogHandler log;
-	Settings settings;
+	Settings settings; 
 	
-	OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(this.fileName, true), "UTF-8");
-	BufferedWriter fw = new BufferedWriter(out); 
-	
-	public SettingsFileHandler(LogHandler log) throws IOException {
-		this.log = log;
+	public SettingsFileHandler() throws IOException {
+		dh = new DateHandler();
+		createFolder();
 	}
 	
-	public void createSettingFile() throws IOException {
-		fileName = "setting" + File.separator + "settings_from_" + dh.getFullDate();
+	public void createFormSettingFile() throws IOException {
+		fileName = "settings" + File.separator + "formSsettings_from_" + dh.getFullDate() + ".ini";
 		File settingFile = new File(fileName);
 		if(!settingFile.exists()) {
 			settingFile.createNewFile();
-			log.addTextToLogFile(log.CREATED, "New settingfile created!");
-			createFileForm();
+			log.addTextToLogFile(log.CREATED, "New Form settings created!");
+			//createFileForm();
 		}
-	}
-	
-	public void createFileForm() throws IOException {
-		fw.write(settings.getX());
-		fw.newLine();
-		fw.write(settings.getY());
-		fw.newLine();
-		fw.write("[Widgets]");
-		fw.newLine();	
-		fw.close();
-	}
-	
+	}	
 	
 	public void addSettingToSettingFile(String input, Area area, String widgetText) throws IOException {		
+		OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(this.fileName, true), "UTF-8");
+		BufferedWriter fw = new BufferedWriter(out);
+		
 		fw.write("(" + input + ")");
 		fw.newLine();
 		fw.write(area.getxCoord());
@@ -58,6 +48,8 @@ public class SettingsFileHandler {
 		fw.close();
 	}
 	
-	
-
+	private void createFolder() {
+		File settingFolder = new File("settings");
+		settingFolder.mkdir();
+	}
 }

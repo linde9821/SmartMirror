@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import smartMirror.Command.CommandHandler;
 import smartMirror.Exception.SmartMirrorException;
 import smartMirror.File.LogHandler;
+import smartMirror.File.SettingsFileHandler;
 import smartMirror.SMPanel.SMPanel;
 import smartMirror.Settings.Settings;
 import smartMirror.widget.AdvancedClock;
@@ -61,7 +62,7 @@ public class SMManager {
 		if (input.equalsIgnoreCase("y")) {
 			settings = new Settings();
 			try {
-				createLog();
+				createFiles();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -111,10 +112,12 @@ public class SMManager {
 		}
 	}
 
-	private static void createLog() throws IOException {
+	private static void createFiles() throws IOException {
 		log = new LogHandler();
 		log.createLogFile();
 		log.addTextToLogFile(log.CREATED, "New LogFile created!");
+		SettingsFileHandler s = new SettingsFileHandler();
+		s.createSettingFile();
 	}
 
 	public static void changeDim(int xdim, int ydim) {

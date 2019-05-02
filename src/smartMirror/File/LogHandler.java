@@ -10,8 +10,8 @@ import smartMirror.DateAndTime.DateHandler;
 
 public class LogHandler {
 
-	DateHandler dh;
-	String fileName;
+	static DateHandler dh;
+	static String fileName;
 	
 	public static String CREATED = "CREATED";
 	public static String REMOVED = "REMOVED";
@@ -20,14 +20,11 @@ public class LogHandler {
 	
 	public LogHandler() {
 		dh = new DateHandler();
-		
 		createFolder();
-		
-		
 	}
 
 	
-	public void createLogFile() throws IOException {
+	public static void createLogFile() throws IOException {
 		fileName = "log" + File.separator + "started_at_" + dh.getFullDate() +".log";
 		File logFile = new File(fileName);
 		if(!logFile.exists()) {
@@ -35,8 +32,8 @@ public class LogHandler {
 		}		
 	}
 	
-	public void addTextToLogFile(String message, String text) throws IOException {
-		OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(this.fileName, true), "UTF-8");
+	public static void addTextToLogFile(String message, String text) throws IOException {
+		OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(fileName, true), "UTF-8");
 		BufferedWriter fw = new BufferedWriter(out);
 
 		fw.write("[" + dh.getFullDate() + "\t");// write date and a tab
@@ -47,7 +44,7 @@ public class LogHandler {
 		
 	}
 	
-	private void createFolder() {
+	private static void createFolder() {
 		File logFolder = new File("log");
 		
 		logFolder.mkdir();
