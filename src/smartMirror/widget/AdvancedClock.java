@@ -1,10 +1,16 @@
 package smartMirror.widget;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.text.SimpleDateFormat;
+import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalTime;
-import java.util.Date;
+
+import javax.imageio.ImageIO;
 
 import smartMirror.Location.Area;
 import smartMirror.SMPanel.SMPanel;
@@ -14,10 +20,26 @@ public class AdvancedClock extends Widget {
 	private SMPanel panel;
 
 	private int hour, minutes, seconds;
+	private int mx, my;
+
+	private BufferedImage img;
 
 	public AdvancedClock(int x, int y, int width, int hight, SMPanel panel) {
 		super(new Area(x, y, width, hight));
 		this.panel = panel;
+
+		update();
+		mx = area.getxCoord() + area.getWidth() / 2;
+		my = area.getyCoord() + area.getHight() / 2;
+
+		img = null;
+
+		try {
+			img = ImageIO.read(new File("res" + File.separator + "clock.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
@@ -47,16 +69,20 @@ public class AdvancedClock extends Widget {
 	}
 
 	public void render(Graphics g) {
-		super.render(g);
-		drawH(g);
+		// super.render(g);
+
+		g.drawImage(img, area.getxCoord(), area.getyCoord(), area.getWidth(), area.getHight(), null);
+
+		drawH((Graphics2D) g);
 		drawM(g);
 		drawS(g);
 	}
 
-	private void drawH(Graphics g) {
+	private void drawH(Graphics2D g) {
 		// h
+		int width = 5;
 		int x, y;
-		final int r = 80;
+		final int r = 120;
 
 		double teilwert = (hour * 60 + minutes);
 
@@ -66,21 +92,26 @@ public class AdvancedClock extends Widget {
 
 		pos = pos - 90;
 
-		int mx = area.getxCoord() + area.getWidth() / 2;
-		int my = area.getyCoord() + area.getHight() / 2;
-		
+		mx = area.getxCoord() + area.getWidth() / 2;
+		my = area.getyCoord() + area.getHight() / 2;
+
 		g.fillOval(mx - 5, my - 5, 10, 10);
 
 		x = (int) (r * Math.cos(Math.toRadians(pos))) + mx;
 		y = (int) (r * Math.sin(Math.toRadians(pos))) + my;
 
-		g.drawLine(mx, my, x, y);
+		Line2D line1 = new Line2D.Float(mx, my, x, y);
+
+		g.setColor(Color.BLACK);
+	    BasicStroke stroke = new BasicStroke(8);
+	    g.setStroke(stroke);
+		g.draw(line1);
 	}
 
 	private void drawM(Graphics g) {
 		// h
 		int x, y;
-		final int r = 100;
+		final int r = 80;
 
 		double teilwert = (minutes);
 
@@ -90,19 +121,19 @@ public class AdvancedClock extends Widget {
 
 		pos = pos - 90;
 
-		int mx = area.getxCoord() + area.getWidth() / 2;
-		int my = area.getyCoord() + area.getHight() / 2;
+		mx = area.getxCoord() + area.getWidth() / 2;
+		my = area.getyCoord() + area.getHight() / 2;
 
 		x = (int) (r * Math.cos(Math.toRadians(pos))) + mx;
 		y = (int) (r * Math.sin(Math.toRadians(pos))) + my;
-
+		g.setColor(Color.DARK_GRAY);
 		g.drawLine(mx, my, x, y);
 	}
 
 	private void drawS(Graphics g) {
 		// h
 		int x, y;
-		final int r = 95;
+		final int r = 90;
 
 		double teilwert = (seconds);
 
@@ -112,12 +143,12 @@ public class AdvancedClock extends Widget {
 
 		pos = pos - 90;
 
-		int mx = area.getxCoord() + area.getWidth() / 2;
-		int my = area.getyCoord() + area.getHight() / 2;
+		mx = area.getxCoord() + area.getWidth() / 2;
+		my = area.getyCoord() + area.getHight() / 2;
 
 		x = (int) (r * Math.cos(Math.toRadians(pos))) + mx;
 		y = (int) (r * Math.sin(Math.toRadians(pos))) + my;
-
+		g.setColor(Color.red);
 		g.drawLine(mx, my, x, y);
 	}
 

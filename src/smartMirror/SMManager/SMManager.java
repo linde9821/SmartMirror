@@ -135,7 +135,7 @@ public class SMManager {
 	
 	private static void autoloadWidgets() {
 		try {
-			panel.getWidgetHandler().addWidget(new AdvancedClock(170, 370, 200, 220, panel));
+			panel.getWidgetHandler().addWidget(new AdvancedClock(120, 370, 350, 350, panel));
 		} catch (SmartMirrorException e) {
 			e.printStackTrace();
 		}
