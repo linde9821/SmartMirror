@@ -22,7 +22,7 @@ public class CommandHandler {
 
 	private void loadCommandList() {
 		commandList.add(new AddWidgetCommand(wh, log));
-
+		
 	}
 
 	public void command(String command) throws SmartMirrorException, IOException {

@@ -11,7 +11,7 @@ public abstract class Command {
 
 	protected String command;
 
-	abstract public void runCommand() throws SmartMirrorException, IOException;
+	abstract public void runCommand() throws SmartMirrorException;
 
 	public String getCommand() {
 		return command;

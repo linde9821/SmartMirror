@@ -13,85 +13,12 @@ import smartMirror.SMPanel.SMPanel;
 import smartMirror.Settings.Settings;
 
 class SMManager {
-
-	private static String input;
-	private static Scanner scanner;
 	private static Settings settings;
 	private static CommandHandler commandHandler;
 	private static LogHandler log;
 
-
 	private static JFrame frame;
 	private static SMPanel panel;
-
-	public static void main(String[] args) throws IOException {
-		scanner = new Scanner(System.in);
-		input = "";
-
-		while (!configurate());
-		
-		System.out.println("Succesfully configurated");
-		runSM();
-		System.out.println("Succesfully started\nEnter (E)xit to stop the program");
-
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-		commandHandler = new CommandHandler(panel.getWidgetHandler(), log);
-		while (!input.equalsIgnoreCase("e")) {
-			System.out.println();
-			scanner = new Scanner(System.in);
-			scanner.reset();
-			try {
-				if (scanner.hasNext()) {
-					input = scanner.nextLine();
-					scanner.close();
-
-					if (!input.equalsIgnoreCase("e")) {
-						commandHandler.command(input);
-					}
-				}
-			} catch (SmartMirrorException e) {
-				e.printStackTrace();
-			}
-		}
-
-		frame.dispose();
-	}
-
-	private static boolean configurate() throws IOException {
-		System.out.println("Ini with default values? (y)es or (n)o: ");
-		input = scanner.next();
-
-		if (input.equalsIgnoreCase("y")) {
-			settings = new Settings();
-			createLog();
-			return true;
-		} else if (input.equalsIgnoreCase("n")) {
-			return true;
-		} else {
-			System.out.println("Unknown input");
-			return false;
-		}
-		
-	}
-
-	private static void runSM() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SMManager window = new SMManager();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	public SMManager() {
 		frame = new JFrame();
@@ -104,9 +31,81 @@ class SMManager {
 		panel.setVisible(true);
 		frame.getContentPane().add(panel);
 	}
-	
-	public static void createLog() throws IOException {
-		log  = new LogHandler();
+
+	public static void main(String[] args) throws IOException {
+		while (!configurate())
+			;
+
+		System.out.println("Succesfully configurated");
+		startSmartMirror();
+		System.out.println("Succesfully started\nEnter (E)xit to stop the program");
+
+		// wait for frame
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+
+		startManager();
+
+		frame.dispose();
+	}
+
+	private static boolean configurate() {
+		System.out.println("Ini with default values? (y)es or (n)o: ");
+		Scanner scanner = new Scanner(System.in);
+		String input = scanner.next();
+
+		if (input.equalsIgnoreCase("y")) {
+			settings = new Settings();
+			try {
+				createLog();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return true;
+		} else if (input.equalsIgnoreCase("n")) {
+			return true;
+		} else {
+			System.out.println("Unknown input");
+			return false;
+		}
+	}
+
+	private static void startSmartMirror() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					SMManager window = new SMManager();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	private static void startManager() {
+		commandHandler = new CommandHandler(panel.getWidgetHandler(), log);
+		Scanner scanner = new Scanner(System.in);
+		String input = null;
+
+		try {
+			do {
+				input = scanner.nextLine();
+
+				if (!input.equalsIgnoreCase("e"))
+					commandHandler.command(input);
+
+			} while (!input.equalsIgnoreCase("e"));
+		} catch (SmartMirrorException | IOException e) {
+			e.printStackTrace();
+		} 
+	}
+
+	private static void createLog() throws IOException {
+		log = new LogHandler();
 		log.createLogFile();
 		log.addTextToLogFile(log.CREATED, "New LogFile created!");
 	}

@@ -21,7 +21,7 @@ public class AddWidgetCommand extends Command {
 	}
 
 	@Override
-	public void runCommand() throws SmartMirrorException, IOException{
+	public void runCommand() throws SmartMirrorException{
 		System.out.println("what kind of widget: ");
 		Scanner scanner = new Scanner(System.in);
 		String input = "";
