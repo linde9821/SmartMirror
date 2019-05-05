@@ -36,8 +36,7 @@ public class SMManager {
 	}
 
 	public static void main(String[] args) throws IOException {
-		while (!configurate())
-			;
+		while (!configurate());
 
 		System.out.println("Succesfully configurated");
 		startSmartMirror();
@@ -58,7 +57,7 @@ public class SMManager {
 	private static boolean configurate() {
 		System.out.println("Ini SmartMirror with default values? (y)es or (n)o: ");
 		Scanner scanner = new Scanner(System.in);
-		String input = scanner.next();
+		String input = "y"; //scanner.next();
 
 		if (input.equalsIgnoreCase("y")) {
 			settings = new Settings();
@@ -138,7 +137,7 @@ public class SMManager {
 	
 	private static void autoloadWidgets() {
 		try {
-			panel.getWidgetHandler().addWidget(new AdvancedClock(170, 370, 200, 220, panel));
+			panel.getWidgetHandler().addWidget(new AdvancedClock(5, 5, 400, 400, panel));
 		} catch (SmartMirrorException e) {
 			e.printStackTrace();
 		}

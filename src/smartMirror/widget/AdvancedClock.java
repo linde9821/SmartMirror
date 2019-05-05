@@ -2,28 +2,62 @@ package smartMirror.widget;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.text.SimpleDateFormat;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.geom.Arc2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalTime;
-import java.util.Date;
+
+import javax.imageio.ImageIO;
 
 import smartMirror.Location.Area;
 import smartMirror.SMPanel.SMPanel;
 
 public class AdvancedClock extends Widget {
-	private static final long UPDATETIME = 1000;
+	private static final long UPDATETIME = 16;
 	private SMPanel panel;
 
-	private int hour, minutes, seconds;
+	private double sekunden, minuten, stunden;
+	private int mx, my;
+
+	private LocalTime now;
+
+	private Rectangle2D sekundenzeiger, minutenzeiger, stundenzeiger;
+	private Arc2D mittelknopf;
+
+	private BufferedImage img;
 
 	public AdvancedClock(int x, int y, int width, int hight, SMPanel panel) {
 		super(new Area(x, y, width, hight));
 		this.panel = panel;
+
+		update();
+
+		//area.getxCoord()
+		//area.getyCoord()
+		//area.getWidth()
+		//area.getHight()
+		
+		stundenzeiger = new Rectangle2D.Float(mx, my - 4, area.getWidth()/4, 8);
+		minutenzeiger = new Rectangle2D.Float(mx, my - 3, 130, 6);
+		sekundenzeiger = new Rectangle2D.Float(mx + 180, my - 3, 7, 6);
+		mittelknopf = new Arc2D.Float(mx - 10, my - 10, 20, 20, 0, 360, Arc2D.PIE);
+
+		img = null;
+
+		try {
+			img = ImageIO.read(new File("res" + File.separator + "clock.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void run() {
 		long lastUpdate = System.currentTimeMillis();
-		update();
 
 		while (true) {
 			if (System.currentTimeMillis() - lastUpdate > UPDATETIME) {
@@ -34,91 +68,82 @@ public class AdvancedClock extends Widget {
 	}
 
 	private void update() {
-		hour = LocalTime.now().getHour();
+		mx = area.getxCoord() + area.getWidth() / 2;
+		my = area.getyCoord() + area.getHight() / 2;
 
-		if (hour >= 12)
-			hour -= 12;
+		now = LocalTime.now();
+		sekunden = ((double) now.getNano() / 1000000000d) + now.getSecond();
+		minuten = now.getMinute() + sekunden / 60;
+		stunden = now.getHour();
 
-		minutes = LocalTime.now().getMinute();
+		if (stunden >= 12)
+			stunden -= 12;
 
-		seconds = LocalTime.now().getSecond();
+		stunden += minuten / 60;
 
 		panel.repaint();
 	}
 
 	public void render(Graphics g) {
-		super.render(g);
-		drawH(g);
-		drawM(g);
-		drawS(g);
+		Graphics2D g2d = (Graphics2D) g;
+
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g2d.drawImage(img, area.getxCoord(), area.getyCoord(), area.getWidth(), area.getHight(), null);
+
+		drawH(g2d);
+		drawS(g2d);
+		drawM(g2d);
+		g2d.setPaint(Color.BLACK);
+		//g2d.fillArc(mx - 10, my - 10, 20, 20, 0, 360);
+		g2d.draw(mittelknopf);
+		g2d.fill(mittelknopf);
 	}
 
-	private void drawH(Graphics g) {
-		// h
-		int x, y;
-		final int r = 80;
-
-		double teilwert = (hour * 60 + minutes);
-
-		double pos = teilwert / (60 * 12);
+	private void drawH(Graphics2D g2d) {
+		double pos = stunden / (12d);
 
 		pos *= 360;
+		pos -= 90;
 
-		pos = pos - 90;
+		g2d.rotate(Math.toRadians(pos), area.getxCoord() + area.getWidth() / 2, area.getyCoord() + area.getHight() / 2);
 
-		int mx = area.getxCoord() + area.getWidth() / 2;
-		int my = area.getyCoord() + area.getHight() / 2;
-		
-		g.fillOval(mx - 5, my - 5, 10, 10);
+		g2d.setPaint(Color.BLACK);
+		g2d.fill(stundenzeiger);
+		g2d.draw(stundenzeiger);
 
-		x = (int) (r * Math.cos(Math.toRadians(pos))) + mx;
-		y = (int) (r * Math.sin(Math.toRadians(pos))) + my;
-
-		g.drawLine(mx, my, x, y);
+		g2d.rotate(-Math.toRadians(pos), area.getxCoord() + area.getWidth() / 2,
+				area.getyCoord() + area.getHight() / 2);
 	}
 
-	private void drawM(Graphics g) {
-		// h
-		int x, y;
-		final int r = 100;
-
-		double teilwert = (minutes);
-
-		double pos = teilwert / (60);
+	private void drawM(Graphics2D g2d) {
+		double pos = minuten / (60d);
 
 		pos *= 360;
+		pos -= 90;
 
-		pos = pos - 90;
+		g2d.rotate(Math.toRadians(pos), area.getxCoord() + area.getWidth() / 2, area.getyCoord() + area.getHight() / 2);
 
-		int mx = area.getxCoord() + area.getWidth() / 2;
-		int my = area.getyCoord() + area.getHight() / 2;
+		g2d.setPaint(Color.BLACK);
+		g2d.fill(minutenzeiger);
+		g2d.draw(minutenzeiger);
 
-		x = (int) (r * Math.cos(Math.toRadians(pos))) + mx;
-		y = (int) (r * Math.sin(Math.toRadians(pos))) + my;
-
-		g.drawLine(mx, my, x, y);
+		g2d.rotate(-Math.toRadians(pos), area.getxCoord() + area.getWidth() / 2,
+				area.getyCoord() + area.getHight() / 2);
 	}
 
-	private void drawS(Graphics g) {
-		// h
-		int x, y;
-		final int r = 95;
-
-		double teilwert = (seconds);
-
-		double pos = teilwert / (60);
+	private void drawS(Graphics2D g2d) {
+		double pos = sekunden / (60);
 
 		pos *= 360;
+		pos -= 90;
 
-		pos = pos - 90;
+		g2d.rotate(Math.toRadians(pos), area.getxCoord() + area.getWidth() / 2, area.getyCoord() + area.getHight() / 2);
 
-		int mx = area.getxCoord() + area.getWidth() / 2;
-		int my = area.getyCoord() + area.getHight() / 2;
+		g2d.setPaint(Color.red);
+		g2d.fill(sekundenzeiger);
+		g2d.draw(sekundenzeiger);
 
-		x = (int) (r * Math.cos(Math.toRadians(pos))) + mx;
-		y = (int) (r * Math.sin(Math.toRadians(pos))) + my;
-
-		g.drawLine(mx, my, x, y);
+		g2d.rotate(-Math.toRadians(pos), area.getxCoord() + area.getWidth() / 2,
+				area.getyCoord() + area.getHight() / 2);
 	}
-
 }
