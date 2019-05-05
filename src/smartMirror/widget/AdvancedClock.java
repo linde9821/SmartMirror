@@ -26,7 +26,6 @@ public class AdvancedClock extends Widget {
 	private LocalTime now;
 
 	private Rectangle2D sekundenzeiger, minutenzeiger, stundenzeiger;
-	private Arc2D mittelknopf;
 
 	private BufferedImage img;
 
@@ -35,16 +34,10 @@ public class AdvancedClock extends Widget {
 		this.panel = panel;
 
 		update();
-
-		//area.getxCoord()
-		//area.getyCoord()
-		//area.getWidth()
-		//area.getHight()
 		
-		stundenzeiger = new Rectangle2D.Float(mx, my - 4, area.getWidth()/4, 8);
-		minutenzeiger = new Rectangle2D.Float(mx, my - 3, 130, 6);
-		sekundenzeiger = new Rectangle2D.Float(mx + 180, my - 3, 7, 6);
-		mittelknopf = new Arc2D.Float(mx - 10, my - 10, 20, 20, 0, 360, Arc2D.PIE);
+		stundenzeiger = new Rectangle2D.Float(mx, my - 0.025f * area.getWidth() / 2, area.getWidth()/4, 0.025f * area.getWidth());
+		minutenzeiger = new Rectangle2D.Float(mx, my - 3.5f, 0.35f * area.getWidth(), 7);
+		sekundenzeiger = new Rectangle2D.Float(mx + 0.45f * area.getWidth(), my - 3, 0.0175f * area.getWidth(), 0.015f*area.getHight());
 
 		img = null;
 
@@ -88,15 +81,14 @@ public class AdvancedClock extends Widget {
 		Graphics2D g2d = (Graphics2D) g;
 
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		
 		g2d.drawImage(img, area.getxCoord(), area.getyCoord(), area.getWidth(), area.getHight(), null);
-
 		drawH(g2d);
 		drawS(g2d);
 		drawM(g2d);
 		g2d.setPaint(Color.BLACK);
-		//g2d.fillArc(mx - 10, my - 10, 20, 20, 0, 360);
-		g2d.draw(mittelknopf);
-		g2d.fill(mittelknopf);
+		g2d.drawArc(mx - 10, my - 10,(int) (0.05f * area.getWidth()),(int) (0.05f * area.getWidth()), 0, 360);
+		g2d.fillArc(mx - 10, my - 10,(int) (0.05f * area.getWidth()),(int) (0.05f * area.getWidth()), 0, 360);
 	}
 
 	private void drawH(Graphics2D g2d) {
