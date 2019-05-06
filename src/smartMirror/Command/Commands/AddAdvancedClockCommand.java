@@ -1,5 +1,6 @@
 package smartMirror.Command.Commands;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import smartMirror.Exception.SmartMirrorException;
@@ -8,14 +9,13 @@ import smartMirror.widget.WidgetHandler;
 
 public class AddAdvancedClockCommand extends AddWidgetCommand {
 
-
 	public AddAdvancedClockCommand(WidgetHandler wh) {
 		super(wh);
 		this.command = "add AddAdvancedClockWidget";
 	}
 
 	@Override
-	public void runCommand() throws SmartMirrorException {
+	public void runCommand() throws SmartMirrorException, IOException {
 		Scanner scanner = new Scanner(System.in);
 		String input;
 
@@ -34,7 +34,7 @@ public class AddAdvancedClockCommand extends AddWidgetCommand {
 		System.out.println("AddAdvancedClockWidget height: ");
 		input = scanner.nextLine();
 		int height = Integer.parseInt(input);
-
+		
 		wh.addWidget(new AdvancedClock(x, y, width, height, wh.getPanel()));
 	}
 

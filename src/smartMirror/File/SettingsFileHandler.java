@@ -28,6 +28,9 @@ public class SettingsFileHandler {
 	public static void createFormSettingFile() throws IOException {
 		fileName = "settings" + File.separator + "formSettings_from_" + dh.getFullDate() + ".ini";
 		settingFile = new File(fileName);
+		if(settingFile.exists()) {
+			settingFile.delete();
+		}
 		if(!settingFile.exists()) {
 			settingFile.createNewFile();
 			log.addTextToLogFile(log.CREATED, "New Form settings created!");

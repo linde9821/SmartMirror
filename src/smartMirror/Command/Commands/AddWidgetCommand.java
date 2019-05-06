@@ -1,5 +1,6 @@
 package smartMirror.Command.Commands;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import smartMirror.Command.Command;
@@ -19,7 +20,7 @@ public class AddWidgetCommand extends Command {
 	}
 
 	@Override
-	public void runCommand() throws SmartMirrorException {
+	public void runCommand() throws SmartMirrorException, IOException {
 		System.out.println("what kind of widget: ");
 		Scanner scanner = new Scanner(System.in);
 		String input = "";

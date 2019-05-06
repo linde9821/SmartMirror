@@ -1,5 +1,6 @@
 package smartMirror.Command;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import smartMirror.Exception.SmartMirrorException;
@@ -13,7 +14,7 @@ public abstract class Command {
 	protected String command;
 	protected ArrayList<String> alias;
 
-	public abstract void runCommand() throws SmartMirrorException;
+	public abstract void runCommand() throws SmartMirrorException, IOException;
 
 	public String getCommand() {
 		return command + alias;
