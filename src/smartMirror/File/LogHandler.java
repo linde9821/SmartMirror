@@ -18,6 +18,7 @@ public class LogHandler {
 	public static String REMOVED = "REMOVED";
 	public static String CHANGED = "CHANGED";
 	public static String STARTED = "STARTED";
+	public static String ADDED = "ADDED";
 	
 	
 	public LogHandler() throws IOException {

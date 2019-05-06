@@ -23,9 +23,13 @@ public class SMManager {
 	private static JFrame frame;
 	private static SMPanel panel;
 
-	public SMManager() {
+	public SMManager() throws IOException {
 		frame = new JFrame();
-		frame.setBounds(100, 100, settings.getX(), settings.getY());
+		int boundX = 100;
+		int boundY = 100;
+		frame.setBounds(boundX, boundY, settings.getX(), settings.getY());
+		createSettingFile(boundX, boundY, settings.getX(), settings.getY());
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
@@ -119,6 +123,7 @@ public class SMManager {
 			log.addTextToLogFile(log.STARTED, "Mirror started!");
 		}else {
 			log.addTextToLogFile(log.CREATED, "New LogFile created!");
+			log.addTextToLogFile(log.CREATED, "New Settingfile created!");
 			log.addTextToLogFile(log.STARTED, "Mirror started!");
 		}
 	}
@@ -146,5 +151,10 @@ public class SMManager {
 		} catch (SmartMirrorException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void createSettingFile(int boundsX, int boundsY, int xCoord, int yCoord) throws IOException {
+		sfl = new SettingsFileHandler();
+		sfl.fillInSettingFile(boundsX, boundsY, xCoord, yCoord);
 	}
 }

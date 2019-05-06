@@ -13,19 +13,20 @@ import smartMirror.Settings.Settings;
 
 public class SettingsFileHandler {
 
-	DateHandler dh;
-	String fileName;
-	LogHandler log;
-	Settings settings; 
-	File settingFile;
+	static DateHandler dh;
+	static String fileName;
+	static LogHandler log;
+	static Settings settings; 
+	static File settingFile;
 	
 	public SettingsFileHandler() throws IOException {
 		dh = new DateHandler();
 		createFolder();
+		createFormSettingFile();
 	}
 	
-	public void createFormSettingFile() throws IOException {
-		fileName = "settings" + File.separator + "formSsettings_from_" + dh.getFullDate() + ".ini";
+	public static void createFormSettingFile() throws IOException {
+		fileName = "settings" + File.separator + "formSettings_from_" + dh.getFullDate() + ".ini";
 		settingFile = new File(fileName);
 		if(!settingFile.exists()) {
 			settingFile.createNewFile();
@@ -33,15 +34,28 @@ public class SettingsFileHandler {
 		}
 	}	
 
-	public void getWidget(String kindOfWidget, String fileName) throws UnsupportedEncodingException, FileNotFoundException {
-		OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(fileName, true), "UTF-8");
-		BufferedWriter fw = new BufferedWriter(out);
-//
-	}
-	
-	// form settings auto write schreiben
-	private void createFolder() {
+	private static void createFolder() {
 		File settingFolder = new File("settings");
 		settingFolder.mkdir();
 	}
+	
+	public void fillInSettingFile(int boundsX, int boundsY, int xCoord, int yCoord) throws IOException {
+		OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(fileName, true), "UTF-8");
+		BufferedWriter fw = new BufferedWriter(out);
+		
+		fw.write("Bound X: ");
+		fw.write(boundsX);
+		fw.newLine();
+		fw.write("Bound Y: ");
+		fw.write(boundsY);
+		fw.newLine();
+		fw.write("xCoord: ");
+		fw.write(xCoord);
+		fw.newLine();
+		fw.write("yCoord: ");
+		fw.write(yCoord);
+		fw.close();		
+	}
+
+	
 }
