@@ -39,7 +39,6 @@ public class SettingsFileHandler {
 //
 	}
 	
-	
 	// form settings auto write schreiben
 	private void createFolder() {
 		File settingFolder = new File("settings");

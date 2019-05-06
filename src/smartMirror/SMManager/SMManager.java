@@ -114,8 +114,13 @@ public class SMManager {
 
 	private static void createFiles() throws IOException {
 		log = new LogHandler();
-		log.createLogFile();
-		log.addTextToLogFile(log.CREATED, "New LogFile created!");
+		//log.createLogFile();
+		if (log.fileExist()) {
+			log.addTextToLogFile(log.STARTED, "Mirror started!");
+		}else {
+			log.addTextToLogFile(log.CREATED, "New LogFile created!");
+			log.addTextToLogFile(log.STARTED, "Mirror started!");
+		}
 	}
 
 	public static void changeDim(int xdim, int ydim) {

@@ -12,21 +12,24 @@ public class LogHandler {
 
 	static DateHandler dh;
 	static String fileName;
+	static File logFile;
 	
 	public static String CREATED = "CREATED";
 	public static String REMOVED = "REMOVED";
 	public static String CHANGED = "CHANGED";
+	public static String STARTED = "STARTED";
 	
 	
-	public LogHandler() {
+	public LogHandler() throws IOException {
 		dh = new DateHandler();
 		createFolder();
+		createLogFile();
 	}
 
 	
 	public static void createLogFile() throws IOException {
 		fileName = "log" + File.separator + "started_at_" + dh.getFullDate() +".log";
-		File logFile = new File(fileName);
+		logFile = new File(fileName);
 		if(!logFile.exists()) {
 			logFile.createNewFile();
 		}		
@@ -48,6 +51,16 @@ public class LogHandler {
 		File logFolder = new File("log");
 		
 		logFolder.mkdir();
+	}
+	
+	public boolean fileExist() {
+		boolean status = false;
+		if (logFile.exists()) {
+			System.out.print("gefunden");
+			status = true;
+		}
+		
+		return status;
 	}
 	
 }
