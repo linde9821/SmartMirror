@@ -31,7 +31,7 @@ public class FullDateWidget extends Widget{
 		dh = new DateHandler();
 		g.drawString(dh.getFullDate(),area.getxCoord(), area.getyCoord());
 	}
-	
+	 
 	@Override
 	public void run() {
 		long lastUpdate = System.currentTimeMillis();
