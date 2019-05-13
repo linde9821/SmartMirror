@@ -10,13 +10,13 @@ import smartMirror.DateAndTime.DateHandler;
 import smartMirror.SMPanel.SMPanel;
 import smartMirror.Location.Area;
 
-public class DateWidget extends Widget{
+public class FullDateWidget extends Widget{
 
 	DateHandler dh;
 	SimpleDateFormat sdf;
 	SMPanel panel;
 	
-	public DateWidget(int x, int y, int width, int hight, SMPanel panel) {
+	public FullDateWidget(int x, int y, int width, int hight, SMPanel panel) {
 		super(new Area(x, y, width, hight));
 		dh = new DateHandler();
 		this.panel = panel;
