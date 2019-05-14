@@ -72,8 +72,9 @@ public class WeatherWidget extends Widget{
 	public void render(Graphics g) {
 		super.render(g);
 		g.setColor(Color.WHITE);
-		g.drawString(temperature, area.getxCoord(), area.getyCoord()+20);
-		g.drawString(humidity, area.getxCoord()+20, area.getyCoord()+40);
+		getWeatherInfos();
+		//g.drawString(temperature, area.getxCoord(), area.getyCoord()+20);
+		//g.drawString(humidity, area.getxCoord()+20, area.getyCoord()+40);
 	}
 	
 	@Override
