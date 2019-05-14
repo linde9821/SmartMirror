@@ -15,13 +15,20 @@ import java.util.Map;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import smartMirror.DateAndTime.DateHandler;
 import smartMirror.Location.Area;
 import smartMirror.SMPanel.SMPanel;
 
 public class WeatherWidget extends Widget{
 
 	SMPanel panel;
+	String API_KEY = "606c4ddff406d41d6beb47980236cc96";
+	String LOCATION = "Berlin,de";
+	String urlString = "http://api.openweathermap.org/data/2.5/weather?q=" + LOCATION + "&appid=" + API_KEY
+			+ "&units=metric";
+	String temperature = "";
+	String humidity = "";
+	String windSpeed = "";
+	String deg = "";
 	
 	public WeatherWidget(int x, int y, int width, int hight, SMPanel panel) {
 		super(new Area(x, y, width, hight));
@@ -29,12 +36,7 @@ public class WeatherWidget extends Widget{
 	}
 	
 	
-	public void xyz() {
-
-		String API_KEY = "606c4ddff406d41d6beb47980236cc96";
-		String LOCATION = "Berlin,de";
-		String urlString = "http://api.openweathermap.org/data/2.5/weather?q=" + LOCATION + "&appid=" + API_KEY
-				+ "&units=metric";
+	public void getWeatherInfos() {
 
 		try {
 			StringBuilder result = new StringBuilder();
@@ -52,11 +54,10 @@ public class WeatherWidget extends Widget{
 			Map<String, Object> mainMap = jsonToMap(respMap.get("main").toString());
 			Map<String, Object> windMap = jsonToMap(respMap.get("wind").toString());
 
-			System.out.println("Aktuelle Temperatur: " + mainMap.get("temp"));
-			System.out.println("Aktuelle Luftfeuchtigkeit: " + mainMap.get("humidity"));
-			System.out.println("Aktuelle Windgeschwindigkeit: " + windMap.get("speed"));
-			System.out.println("Aktuelle noch auszufüllem: " + windMap.get("deg"));
-
+			temperature = "Aktuelle Temperatur: " + (String) mainMap.get("temp");
+			humidity =  "Aktuelle Luftfeuchtigkeit: " + (String) mainMap.get("humidity");
+			windSpeed = "Atuelle Windgeschwindigkeit: " + (String) windMap.get("speed");
+			deg = "Aktuelles irgendwas: " + (String) windMap.get("deg");
 		} catch (IOException e) {
 			System.out.print(e.getMessage());
 		}
@@ -70,13 +71,16 @@ public class WeatherWidget extends Widget{
 	
 	public void render(Graphics g) {
 		super.render(g);
+		g.setColor(Color.WHITE);
+		g.drawString(temperature, area.getxCoord(), area.getyCoord()+20);
+		g.drawString(humidity, area.getxCoord()+20, area.getyCoord()+40);
 	}
 	
 	@Override
 	public void run() {
 		long lastUpdate = System.currentTimeMillis();
 		while(true) {
-			if(System.currentTimeMillis()-lastUpdate >= 1000) {
+			if(System.currentTimeMillis()-lastUpdate >= 900000) {
 				update();
 				lastUpdate = System.currentTimeMillis();
 			}
