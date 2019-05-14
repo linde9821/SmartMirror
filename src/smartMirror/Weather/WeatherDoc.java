@@ -36,8 +36,7 @@ public class WeatherDoc
     String url = null;
     String XmlData = null;
     
-
-    url = "http://xml.weather.yahoo.com/forecastrss?w=" + code + "&u=" + IM;
+    url = "http://xml.weather.yahoo.com/forecastrss?w=2345496&u=c"; //"http://xml.weather.yahoo.com/forecastrss?w=" + code + "&u=" + IM;
     URL xmlUrl = new URL(url);
     InputStream in = xmlUrl.openStream();
     

@@ -21,7 +21,7 @@ public class LogHandler {
 	public static String ADDED = "ADDED";
 	
 	
-	public LogHandler() throws IOException {
+	public static void iniLogHandler() throws IOException {
 		dh = new DateHandler();
 		createFolder();
 		createLogFile();
@@ -54,7 +54,7 @@ public class LogHandler {
 		logFolder.mkdir();
 	}
 	
-	public boolean fileExist() {
+	public static boolean fileExist() {
 		boolean status = false;
 		if (logFile.exists()) {
 			System.out.print("gefunden");

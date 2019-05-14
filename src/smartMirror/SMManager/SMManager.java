@@ -13,6 +13,7 @@ import smartMirror.File.SettingsFileHandler;
 import smartMirror.SMPanel.SMPanel;
 import smartMirror.Settings.Settings;
 import smartMirror.widget.AdvancedClock;
+import smartMirror.widget.WeatherWidget;
 
 public class SMManager {
 	private static Settings settings;
@@ -40,6 +41,7 @@ public class SMManager {
 	}
 
 	public static void main(String[] args) throws IOException {
+		LogHandler.iniLogHandler();
 		while (!configurate());
 
 		System.out.println("Succesfully configurated");
@@ -117,14 +119,12 @@ public class SMManager {
 	}
 
 	private static void createFiles() throws IOException {
-		log = new LogHandler();
-		//log.createLogFile();
-		if (log.fileExist()) {
-			log.addTextToLogFile(log.STARTED, "Mirror started!");
+		if (LogHandler.fileExist()) {
+			LogHandler.addTextToLogFile(LogHandler.STARTED, "Mirror started!");
 		}else {
-			log.addTextToLogFile(log.CREATED, "New LogFile created!");
-			log.addTextToLogFile(log.CREATED, "New Settingfile created!");
-			log.addTextToLogFile(log.STARTED, "Mirror started!");
+			LogHandler.addTextToLogFile(LogHandler.CREATED, "New LogFile created!");
+			LogHandler.addTextToLogFile(LogHandler.CREATED, "New Settingfile created!");
+			LogHandler.addTextToLogFile(LogHandler.STARTED, "Mirror started!");
 		}
 	}
 
@@ -148,6 +148,7 @@ public class SMManager {
 	private static void autoloadWidgets() {
 		try {
 			panel.getWidgetHandler().addWidget(new AdvancedClock(5, 5, 400, 400, panel));
+			panel.getWidgetHandler().addWidget(new WeatherWidget(5, 600, 400, 400, panel));
 		} catch (SmartMirrorException e) {
 			e.printStackTrace();
 		}
