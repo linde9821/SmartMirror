@@ -19,7 +19,7 @@ public class SMPanel extends JPanel{
 	WidgetHandler wh;
 	
 	public SMPanel(Settings settings) {
-		setBackground(Color.WHITE);
+		setBackground(Color.BLACK);
 		activeWidgets = new ArrayList<Widget>();
 		wh = new WidgetHandler(activeWidgets, this, settings);
 	}

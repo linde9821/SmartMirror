@@ -2,128 +2,95 @@ package smartMirror.widget;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.imageio.ImageIO;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import smartMirror.DateAndTime.DateHandler;
 import smartMirror.Location.Area;
 import smartMirror.SMPanel.SMPanel;
-import smartMirror.Weather.WeatherDisplay;
-import smartMirror.Weather.WeatherDoc;
 
-public class WeatherWidget extends Widget {
+public class WeatherWidget {
 
-	DateHandler dh;
 	SMPanel panel;
-	// String city;
-
-	// 2345496 code für Berlin
-	// c für metrisches system
-	/**WeatherDoc doc = new WeatherDoc("2345496", "c");
-	WeatherDisplay disp = new WeatherDisplay();**/
-
+	
 	public WeatherWidget(int x, int y, int width, int hight, SMPanel panel) {
 		super(new Area(x, y, width, hight));
-		dh = new DateHandler();
 		this.panel = panel;
-		// this.city = city;
+	}
+	
+	
+	public void xyz() {
+
+		String API_KEY = "606c4ddff406d41d6beb47980236cc96";
+		String LOCATION = "Berlin,de";
+		String urlString = "http://api.openweathermap.org/data/2.5/weather?q=" + LOCATION + "&appid=" + API_KEY
+				+ "&units=metric";
+
+		try {
+			StringBuilder result = new StringBuilder();
+			URL url = new URL(urlString);
+			URLConnection conn = url.openConnection();
+			BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String line;
+			while ((line = rd.readLine()) != null) {
+				result.append(line);
+			}
+			rd.close();
+			System.out.print(result);
+
+			Map<String, Object> respMap = jsonToMap(result.toString());
+			Map<String, Object> mainMap = jsonToMap(respMap.get("main").toString());
+			Map<String, Object> windMap = jsonToMap(respMap.get("wind").toString());
+
+			System.out.println("Aktuelle Temperatur: " + mainMap.get("temp"));
+			System.out.println("Aktuelle Luftfeuchtigkeit: " + mainMap.get("humidity"));
+			System.out.println("Aktuelle Windgeschwindigkeit: " + windMap.get("speed"));
+			System.out.println("Aktuelle noch auszufüllem: " + windMap.get("deg"));
+
+		} catch (IOException e) {
+			System.out.print(e.getMessage());
+		}
 	}
 
+	public static Map<String, Object> jsonToMap(String str) {
+		Map<String, Object> map = new Gson().fromJson(str, new TypeToken<HashMap<String, Object>>() {
+		}.getType());
+		return map;
+	}
+	
 	public void render(Graphics g) {
 		super.render(g);
-		/**g.setColor(Color.WHITE);
-		// schreibt Temperatur
-		Image tmpImage;
-		try {
-			tmpImage = ImageIO.read(new File(".\\img\\weather\\temperature-2-16.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.print("Bild nicht gefunden!");
-		}
-		g.drawString(getTempString(), area.getxCoord() + 20, area.getyCoord());
-		g.drawString(getSunriseString(), area.getxCoord(), area.getyCoord() + 20);
-		g.drawString(getSunsetString(), area.getxCoord(), area.getyCoord() + 40);
-		g.drawString(getHeavenCondition(), area.getxCoord(), area.getyCoord() + 60);
-		**/
-
 	}
-
+	
 	@Override
 	public void run() {
 		long lastUpdate = System.currentTimeMillis();
-		while (true) {
-			if (System.currentTimeMillis() - lastUpdate >= 900000) {
+		while(true) {
+			if(System.currentTimeMillis()-lastUpdate >= 1000) {
 				update();
 				lastUpdate = System.currentTimeMillis();
 			}
 		}
 	}
-
+	
+	public String getTime() {
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		String timeNow = sdf.format(new Date());
+		return timeNow;
+	}
+	
 	private void update() {
 		panel.repaint();
 	}
-
-	/**private String getTempString() {
-		String tempString = "Temperatur " + disp.getCity() + "°";
-		return tempString;
-	}
-
-	private String getSunsetString() {
-		String sunsetString = "Sonnenuntergang um " + disp.getSunset();
-		return sunsetString;
-	}
-
-	private String getSunriseString() {
-		String sunriseString = "Sonnenaufgang um " + disp.getSunrise();
-		return sunriseString;
-	}
-
-	private String getHeavenCondition() {
-		String heavenConditionString = disp.getCondition();
-
-		// weitere fälle ergänzen
-		// ich weiß aber den genauen wortlaut noch nicht
-
-		if (heavenConditionString != null) {
-			switch (heavenConditionString) {
-			case "Mostly Cloudy":
-				heavenConditionString = "Leicht Bewölkt";
-				break;
-			case "Rain":
-				heavenConditionString = "Regen";
-				break;
-			case "Mostly Clear":
-				heavenConditionString = "Weitestgehend Klar";
-				break;
-			case "Showers":
-				heavenConditionString = "Schauer";
-				break;
-			case "Mostly Sunny":
-				heavenConditionString = "Meist Sonnig";
-				break;
-			case "Sunny":
-				heavenConditionString = "Sonnig";
-				break;
-			case "Partly Cloudy":
-				heavenConditionString = "Teilweise Bewölkt";
-				break;
-			case "Clear":
-				heavenConditionString = "Klar";
-				break;
-			case "Breezy":
-				heavenConditionString = "Windig";
-				break;
-			default:
-				heavenConditionString = "undefiniert";
-			}
-		}else {
-			heavenConditionString = "undefiniert";
-		}
-		return heavenConditionString;
-	}**/
 
 }
