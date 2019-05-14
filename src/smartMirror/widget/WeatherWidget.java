@@ -22,8 +22,8 @@ public class WeatherWidget extends Widget {
 
 	// 2345496 code für Berlin
 	// c für metrisches system
-	WeatherDoc doc = new WeatherDoc("2345496", "c");
-	WeatherDisplay disp = new WeatherDisplay();
+	/**WeatherDoc doc = new WeatherDoc("2345496", "c");
+	WeatherDisplay disp = new WeatherDisplay();**/
 
 	public WeatherWidget(int x, int y, int width, int hight, SMPanel panel) {
 		super(new Area(x, y, width, hight));
@@ -34,7 +34,7 @@ public class WeatherWidget extends Widget {
 
 	public void render(Graphics g) {
 		super.render(g);
-		g.setColor(Color.WHITE);
+		/**g.setColor(Color.WHITE);
 		// schreibt Temperatur
 		Image tmpImage;
 		try {
@@ -48,6 +48,7 @@ public class WeatherWidget extends Widget {
 		g.drawString(getSunriseString(), area.getxCoord(), area.getyCoord() + 20);
 		g.drawString(getSunsetString(), area.getxCoord(), area.getyCoord() + 40);
 		g.drawString(getHeavenCondition(), area.getxCoord(), area.getyCoord() + 60);
+		**/
 
 	}
 
@@ -66,7 +67,7 @@ public class WeatherWidget extends Widget {
 		panel.repaint();
 	}
 
-	private String getTempString() {
+	/**private String getTempString() {
 		String tempString = "Temperatur " + disp.getCity() + "°";
 		return tempString;
 	}
@@ -123,6 +124,6 @@ public class WeatherWidget extends Widget {
 			heavenConditionString = "undefiniert";
 		}
 		return heavenConditionString;
-	}
+	}**/
 
 }
