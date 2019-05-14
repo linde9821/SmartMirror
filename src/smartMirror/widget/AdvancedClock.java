@@ -81,13 +81,14 @@ public class AdvancedClock extends Widget {
 		Graphics2D g2d = (Graphics2D) g;
 
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		
 		g2d.drawImage(img, area.getxCoord(), area.getyCoord(), area.getWidth(), area.getHight(), null);
 		drawH(g2d);
 		drawS(g2d);
 		drawM(g2d);
-		g2d.setPaint(Color.BLACK);
-		g2d.drawArc(mx - 10, my - 10,(int) (0.05f * area.getWidth()),(int) (0.05f * area.getWidth()), 0, 360);
+		g2d.setPaint(Color.WHITE);
+		//g2d.drawArc(mx - 10, my - 10,(int) (0.05f * area.getWidth()),(int) (0.05f * area.getWidth()), 0, 360);
 		g2d.fillArc(mx - 10, my - 10,(int) (0.05f * area.getWidth()),(int) (0.05f * area.getWidth()), 0, 360);
 	}
 
@@ -99,9 +100,9 @@ public class AdvancedClock extends Widget {
 
 		g2d.rotate(Math.toRadians(pos), area.getxCoord() + area.getWidth() / 2, area.getyCoord() + area.getHight() / 2);
 
-		g2d.setPaint(Color.BLACK);
+		g2d.setPaint(Color.WHITE);
 		g2d.fill(stundenzeiger);
-		g2d.draw(stundenzeiger);
+		//g2d.draw(stundenzeiger);
 
 		g2d.rotate(-Math.toRadians(pos), area.getxCoord() + area.getWidth() / 2,
 				area.getyCoord() + area.getHight() / 2);
@@ -115,9 +116,9 @@ public class AdvancedClock extends Widget {
 
 		g2d.rotate(Math.toRadians(pos), area.getxCoord() + area.getWidth() / 2, area.getyCoord() + area.getHight() / 2);
 
-		g2d.setPaint(Color.BLACK);
+		g2d.setPaint(Color.WHITE);
 		g2d.fill(minutenzeiger);
-		g2d.draw(minutenzeiger);
+		//g2d.draw(minutenzeiger);
 
 		g2d.rotate(-Math.toRadians(pos), area.getxCoord() + area.getWidth() / 2,
 				area.getyCoord() + area.getHight() / 2);
@@ -131,9 +132,9 @@ public class AdvancedClock extends Widget {
 
 		g2d.rotate(Math.toRadians(pos), area.getxCoord() + area.getWidth() / 2, area.getyCoord() + area.getHight() / 2);
 
-		g2d.setPaint(Color.red);
+		g2d.setPaint(Color.RED);
 		g2d.fill(sekundenzeiger);
-		g2d.draw(sekundenzeiger);
+		//g2d.draw(sekundenzeiger);
 
 		g2d.rotate(-Math.toRadians(pos), area.getxCoord() + area.getWidth() / 2,
 				area.getyCoord() + area.getHight() / 2);
