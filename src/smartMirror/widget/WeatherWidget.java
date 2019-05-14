@@ -19,7 +19,7 @@ import smartMirror.DateAndTime.DateHandler;
 import smartMirror.Location.Area;
 import smartMirror.SMPanel.SMPanel;
 
-public class WeatherWidget {
+public class WeatherWidget extends Widget{
 
 	SMPanel panel;
 	
