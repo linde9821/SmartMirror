@@ -2,6 +2,11 @@ package smartMirror.widget;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import smartMirror.DateAndTime.DateHandler;
 import smartMirror.Location.Area;
@@ -31,7 +36,15 @@ public class WeatherWidget extends Widget{
 		super.render(g);
 		g.setColor(Color.WHITE);
 		//schreibt Temperatur
-		g.drawString(getTempString(), area.getxCoord(), area.getyCoord());
+		Image tmpImage;
+		try {
+			tmpImage = ImageIO.read(new File("C:\\Users\\marvi_000\\git\\SmartMirror\\img\\weather\\temperature-2-16.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.print("Bild nicht gefunden!");
+		}
+		g.drawString(getTempString(), area.getxCoord()+20, area.getyCoord());
 		g.drawString(getSunriseString(), area.getxCoord(), area.getyCoord()+20);
 		g.drawString(getSunsetString(), area.getxCoord(), area.getyCoord()+40);
 		g.drawString(getHeavenCondition(), area.getxCoord(), area.getyCoord()+60);
