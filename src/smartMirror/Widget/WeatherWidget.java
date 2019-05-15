@@ -1,4 +1,5 @@
 /**
+* Widget, welches das aktuelle Wetter von openweathermap.org holt und anzeigt
 * @author  Marvin Saﬂe
 * @version 0.1.0
 * @since 15.05.2019 
