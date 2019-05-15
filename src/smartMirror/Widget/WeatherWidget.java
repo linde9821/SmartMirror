@@ -21,13 +21,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.*;
+//import com.google.gson.reflect.*;
+import com.google.gson.reflect.TypeToken;
 
 import smartMirror.Location.Area;
 import smartMirror.Panel.SmartMirrorPanel;
 
 public class WeatherWidget extends Widget{
 
+	//Gson g = new Gson();
+	
 	SmartMirrorPanel panel;
 	String API_KEY = "606c4ddff406d41d6beb47980236cc96";
 	String LOCATION = "Berlin,de";
@@ -37,6 +40,7 @@ public class WeatherWidget extends Widget{
 	String humidity = "";
 	String windSpeed = "";
 	String deg = "";
+	String sky = "";
 	
 	public WeatherWidget(int x, int y, int width, int hight, SmartMirrorPanel panel) {
 		super(new Area(x, y, width, hight));
@@ -56,24 +60,25 @@ public class WeatherWidget extends Widget{
 				result.append(line);
 			}
 			rd.close();
-			System.out.print(result);
+			System.out.print("Das reslut: " + result.toString());
 
 			Map<String, Object> respMap = jsonToMap(result.toString());
+ 			Map<String, Object> weatherMap = jsonToMap(respMap.get("coord").toString());
 			Map<String, Object> mainMap = jsonToMap(respMap.get("main").toString());
 			Map<String, Object> windMap = jsonToMap(respMap.get("wind").toString());
 
-			temperature = "Aktuelle Temperatur: " + (String) mainMap.get("temp");
-			humidity =  "Aktuelle Luftfeuchtigkeit: " + (String) mainMap.get("humidity");
-			windSpeed = "Atuelle Windgeschwindigkeit: " + (String) windMap.get("speed");
-			deg = "Aktuelles irgendwas: " + (String) windMap.get("deg");
+			//sky = "" + weatherMap.get("description");
+			temperature = "Aktuelle Temperatur: " +  mainMap.get("temp");
+			humidity =  "Aktuelle Luftfeuchtigkeit: " + mainMap.get("humidity");
+			windSpeed = "Atuelle Windgeschwindigkeit: " + windMap.get("speed");
+			deg = "Aktuelles irgendwas: " + windMap.get("deg");
 		} catch (IOException e) {
 			System.out.print(e.getMessage());
 		}
 	}
 
 	public static Map<String, Object> jsonToMap(String str) {
-		Map<String, Object> map = new Gson().fromJson(str, new TypeToken<HashMap<String, Object>>() {
-		}.getType());
+		Map<String, Object> map = new Gson().fromJson(str, new TypeToken<HashMap<String, Object>>() {}.getType());
 		return map;
 	}
 	
@@ -81,8 +86,11 @@ public class WeatherWidget extends Widget{
 		super.render(g);
 		g.setColor(Color.WHITE);
 		getWeatherInfos();
-		//g.drawString(temperature, area.getxCoord(), area.getyCoord()+20);
-		//g.drawString(humidity, area.getxCoord()+20, area.getyCoord()+40);
+		//g.drawString(sky, area.getxCoord(), area.getyCoord());
+		g.drawString(temperature, area.getxCoord(), area.getyCoord()+20);
+		g.drawString(humidity, area.getxCoord(), area.getyCoord()+40);
+		g.drawString(windSpeed, area.getxCoord(), area.getyCoord()+60);
+		g.drawString(deg, area.getxCoord(), area.getyCoord()+80);
 	}
 	
 	@Override
