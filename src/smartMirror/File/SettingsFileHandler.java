@@ -1,3 +1,9 @@
+/**
+* @author  Marvin Saﬂe
+* @version 0.1
+* @since 15.05.2019 
+*/
+
 package smartMirror.File;
 
 import java.io.BufferedWriter;

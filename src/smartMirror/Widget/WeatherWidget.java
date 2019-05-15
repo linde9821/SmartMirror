@@ -1,4 +1,11 @@
-package smartMirror.widget;
+/**
+* @author  Marvin Saﬂe
+* @version 0.1.0
+* @since 15.05.2019 
+*/
+
+
+package smartMirror.Widget;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -13,14 +20,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.google.gson.reflect.*;
 
 import smartMirror.Location.Area;
-import smartMirror.SMPanel.SMPanel;
+import smartMirror.Panel.SmartMirrorPanel;
 
 public class WeatherWidget extends Widget{
 
-	SMPanel panel;
+	SmartMirrorPanel panel;
 	String API_KEY = "606c4ddff406d41d6beb47980236cc96";
 	String LOCATION = "Berlin,de";
 	String urlString = "http://api.openweathermap.org/data/2.5/weather?q=" + LOCATION + "&appid=" + API_KEY
@@ -30,7 +37,7 @@ public class WeatherWidget extends Widget{
 	String windSpeed = "";
 	String deg = "";
 	
-	public WeatherWidget(int x, int y, int width, int hight, SMPanel panel) {
+	public WeatherWidget(int x, int y, int width, int hight, SmartMirrorPanel panel) {
 		super(new Area(x, y, width, hight));
 		this.panel = panel;
 	}

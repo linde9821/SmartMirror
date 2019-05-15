@@ -1,11 +1,19 @@
+/**
+* Command zu einem Widget welches eine Analoguhr, mit Stunden-, Minuten- und Sekundenzeiger, 
+* entsprechend der, aktuellen Systemzeit, rendert.
+* @author  Moritz Lindner
+* @version 0.1.1
+* @since 15.05.2019 
+*/
+
 package smartMirror.Command.Commands;
 
 import java.io.IOException;
 import java.util.Scanner;
 
 import smartMirror.Exception.SmartMirrorException;
-import smartMirror.widget.AdvancedClock;
-import smartMirror.widget.WidgetHandler;
+import smartMirror.Widget.AdvancedClockWidget;
+import smartMirror.Widget.WidgetHandler;
 
 public class AddAdvancedClockCommand extends AddWidgetCommand {
 
@@ -15,6 +23,9 @@ public class AddAdvancedClockCommand extends AddWidgetCommand {
 	}
 
 	@Override
+	/**
+	 * Erfragt die benötigten Informationen zum hinzufügen des Widgets.
+	 */
 	public void runCommand() throws SmartMirrorException, IOException {
 		Scanner scanner = new Scanner(System.in);
 		String input;
@@ -34,8 +45,8 @@ public class AddAdvancedClockCommand extends AddWidgetCommand {
 		System.out.println("AddAdvancedClockWidget height: ");
 		input = scanner.nextLine();
 		int height = Integer.parseInt(input);
-		
-		wh.addWidget(new AdvancedClock(x, y, width, height, wh.getPanel()));
+
+		wh.addWidget(new AdvancedClockWidget(x, y, width, height, wh.getPanel()));
 	}
 
 }

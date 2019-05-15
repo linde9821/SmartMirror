@@ -1,3 +1,9 @@
+/**
+* @author  Marvin Saße
+* @version 0.1
+* @since 15.05.2019 
+*/
+
 package smartMirror.DateAndTime;
 
 import java.text.SimpleDateFormat;

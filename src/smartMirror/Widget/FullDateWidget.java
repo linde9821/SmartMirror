@@ -1,22 +1,27 @@
-package smartMirror.widget;
+/**
+* @author  Marvin Saﬂe
+* @version 0.1.0
+* @since 15.05.2019 
+*/
+
+package smartMirror.Widget;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import smartMirror.DateAndTime.DateHandler;
-import smartMirror.SMPanel.SMPanel;
 import smartMirror.Location.Area;
+import smartMirror.Panel.SmartMirrorPanel;
 
 public class FullDateWidget extends Widget{
 
 	DateHandler dh;
 	SimpleDateFormat sdf;
-	SMPanel panel;
+	SmartMirrorPanel panel;
 	
-	public FullDateWidget(int x, int y, int width, int hight, SMPanel panel) {
+	public FullDateWidget(int x, int y, int width, int hight, SmartMirrorPanel panel) {
 		super(new Area(x, y, width, hight));
 		dh = new DateHandler();
 		this.panel = panel;

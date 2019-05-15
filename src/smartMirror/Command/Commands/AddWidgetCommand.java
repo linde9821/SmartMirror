@@ -1,3 +1,9 @@
+/**
+* @author  Moritz Lindner
+* @version 0.1
+* @since 15.05.2019 
+*/
+
 package smartMirror.Command.Commands;
 
 import java.io.IOException;
@@ -5,7 +11,7 @@ import java.util.Scanner;
 
 import smartMirror.Command.Command;
 import smartMirror.Exception.SmartMirrorException;
-import smartMirror.widget.WidgetHandler;
+import smartMirror.Widget.WidgetHandler;
 
 public class AddWidgetCommand extends Command {
 	public static final String TEXTWIDGET = "text widget";

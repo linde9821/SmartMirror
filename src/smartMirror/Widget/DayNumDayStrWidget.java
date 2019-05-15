@@ -1,34 +1,41 @@
-package smartMirror.widget;
+/**
+* @author  Marvin Saﬂe
+* @version 0.1.0
+* @since 15.05.2019 
+*/
+
+package smartMirror.Widget;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import smartMirror.DateAndTime.DateHandler;
 import smartMirror.Location.Area;
-import smartMirror.SMPanel.SMPanel;
+import smartMirror.Panel.SmartMirrorPanel;
 
-public class DateAndClockWidget extends Widget {
+public class DayNumDayStrWidget extends Widget{
 
 	DateHandler dh;
 	SimpleDateFormat sdf;
-	String timeNow;
-	SMPanel panel;
+	SmartMirrorPanel panel;
 	
-	public DateAndClockWidget(int x, int y, int width, int hight, SMPanel panel) {
+	public DayNumDayStrWidget(int x, int y, int width, int hight, SmartMirrorPanel panel) {
 		super(new Area(x, y, width, hight));
 		dh = new DateHandler();
 		this.panel = panel;
 	}
 	
-	public void render(Graphics g) {
+	public void rernder(Graphics g) {
 		super.render(g);
+		Font newFont = new Font("Serif", Font.BOLD, 20);
+		g.setFont(newFont);
 		g.setColor(Color.WHITE);
 		dh = null;
 		dh = new DateHandler();
-		g.drawString(dh.getFullDate(), area.getxCoord()+10, area.getyCoord()+30);
-		g.drawString(getTime(), area.getxCoord()+10, area.getyCoord()+10 );
+		String dayNumAndMonthStr = dh.getDay() + dh.getMonthAsName();
+		g.drawString(dayNumAndMonthStr,area.getxCoord(), area.getyCoord());
 	}
 	
 	@Override
@@ -42,13 +49,8 @@ public class DateAndClockWidget extends Widget {
 		}
 	}
 	
-	public String getTime() {
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-		String timeNow = sdf.format(new Date());
-		return timeNow;
-	}
-	
 	private void update() {
 		panel.repaint();
 	}
+
 }

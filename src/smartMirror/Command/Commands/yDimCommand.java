@@ -1,9 +1,15 @@
+/**
+* @author  Moritz Lindner
+* @version 0.1
+* @since 15.05.2019 
+*/
+
 package smartMirror.Command.Commands;
 
 import java.util.Scanner;
 
 import smartMirror.Exception.SmartMirrorException;
-import smartMirror.SMManager.SMManager;
+import smartMirror.Manager.SmartMirrorManager;
 
 public class yDimCommand extends ChangeSettingCommand {
 
@@ -19,6 +25,6 @@ public class yDimCommand extends ChangeSettingCommand {
 		System.out.print("value: ");
 		input = scanner.nextLine();
 		
-		SMManager.changeyDim(Integer.parseInt(input));
+		SmartMirrorManager.changeyDim(Integer.parseInt(input));
 	}
 }

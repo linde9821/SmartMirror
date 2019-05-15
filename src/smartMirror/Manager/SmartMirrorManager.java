@@ -1,4 +1,11 @@
-package smartMirror.SMManager;
+/**
+ * Kontrolliert den gesamten Ablauf des Programms. Ist Einstiegspunkt.
+* @author  Moritz Lindner & Marvin Saße
+* @version 0.3.1
+* @since 15.05.2019 
+*/
+
+package smartMirror.Manager;
 
 import java.awt.EventQueue;
 import java.io.IOException;
@@ -10,39 +17,45 @@ import smartMirror.Command.CommandHandler;
 import smartMirror.Exception.SmartMirrorException;
 import smartMirror.File.LogHandler;
 import smartMirror.File.SettingsFileHandler;
-import smartMirror.SMPanel.SMPanel;
+import smartMirror.Panel.SmartMirrorPanel;
 import smartMirror.Settings.Settings;
-import smartMirror.widget.AdvancedClock;
-import smartMirror.widget.WeatherWidget;
+import smartMirror.Widget.AdvancedClockWidget;
 
-public class SMManager {
+public class SmartMirrorManager {
 	private static Settings settings;
 	private static CommandHandler commandHandler;
-	private static LogHandler log;
 	private static SettingsFileHandler sfl;
 
 	private static JFrame frame;
-	private static SMPanel panel;
+	private static SmartMirrorPanel panel;
 
-	public SMManager() throws IOException {
+	public SmartMirrorManager() throws IOException {
 		frame = new JFrame();
 		int boundX = 100;
 		int boundY = 100;
 		frame.setBounds(boundX, boundY, settings.getX(), settings.getY());
 		createSettingFile(boundX, boundY, settings.getX(), settings.getY());
-		
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
-		panel = new SMPanel(settings);
+		panel = new SmartMirrorPanel(settings);
 		panel.setBounds(0, 0, settings.getX(), settings.getY());
 		panel.setVisible(true);
 		frame.getContentPane().add(panel);
 	}
 
+	/**
+	 * Einstiegspunkt und Hauptfunktion des Programms. Initiert alle benötigten
+	 * Programmteile und beendet diese auch.
+	 * 
+	 * @param args not used
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws IOException {
 		LogHandler.iniLogHandler();
-		while (!configurate());
+		while (!configurate())
+			;
 
 		System.out.println("Succesfully configurated");
 		startSmartMirror();
@@ -60,10 +73,16 @@ public class SMManager {
 		frame.dispose();
 	}
 
+	/**
+	 * Konfiguriert Programm. (Aktuell wird automatisch die Standardkonfiguration
+	 * geladen, d.h. die Userabfragen wurden deaktiviert)
+	 * 
+	 * @return
+	 */
 	private static boolean configurate() {
 		System.out.println("Ini SmartMirror with default values? (y)es or (n)o: ");
 		Scanner scanner = new Scanner(System.in);
-		String input = "y"; //scanner.next();
+		String input = "y"; // scanner.next();
 
 		if (input.equalsIgnoreCase("y")) {
 			settings = new Settings();
@@ -81,12 +100,16 @@ public class SMManager {
 		}
 	}
 
+	/**
+	 * Erstell den Frame des Mirrors
+	 */
 	private static void startSmartMirror() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SMManager window = new SMManager();
-					window.frame.setVisible(true);
+					// das ist garantiert nicht schön aber es funktioniert
+					new SmartMirrorManager();
+					SmartMirrorManager.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -94,12 +117,16 @@ public class SMManager {
 		});
 	}
 
+	/**
+	 * Hauptschleife des Managers. Beinhaltet den CommandHandler und übernimmt daher
+	 * die interaktion mit dem Nutzer.
+	 */
 	private static void startManager() {
-		commandHandler = new CommandHandler(panel.getWidgetHandler(), log);
+		commandHandler = new CommandHandler(panel.getWidgetHandler());
 		System.out.println("Commandhandler online:");
 		Scanner scanner = new Scanner(System.in);
 		String input;
-		
+
 		autoloadWidgets();
 
 		while (true) {
@@ -121,7 +148,7 @@ public class SMManager {
 	private static void createFiles() throws IOException {
 		if (LogHandler.fileExist()) {
 			LogHandler.addTextToLogFile(LogHandler.STARTED, "Mirror started!");
-		}else {
+		} else {
 			LogHandler.addTextToLogFile(LogHandler.CREATED, "New LogFile created!");
 			LogHandler.addTextToLogFile(LogHandler.CREATED, "New Settingfile created!");
 			LogHandler.addTextToLogFile(LogHandler.STARTED, "Mirror started!");
@@ -133,27 +160,32 @@ public class SMManager {
 		settings.setX(xdim);
 		settings.setY(ydim);
 		panel.setBounds(0, 0, settings.getX(), settings.getY());
-		
+		panel.getWidgetHandler().updateMap(settings);
+		panel.getWidgetHandler().proofAllWidgets();
 	}
 
 	public static void changeyDim(int ydim) {
 		changeDim(frame.getX(), ydim);
-
 	}
 
+	/**
+	 * 
+	 * @param xdim Neuer Wert für die X-Dimension
+	 */
 	public static void changexDim(int xdim) {
 		changeDim(xdim, frame.getY());
 	}
-	
+
 	private static void autoloadWidgets() {
 		try {
-			//panel.getWidgetHandler().addWidget(new AdvancedClock(5, 5, 400, 400, panel));
-			panel.getWidgetHandler().addWidget(new WeatherWidget(5, 600, 400, 400, panel));
+			panel.getWidgetHandler().addWidget(new AdvancedClockWidget(5, 5, 400, 400, panel));
+			// panel.getWidgetHandler().addWidget(new WeatherWidget(5, 600, 400, 400,
+			// panel));
 		} catch (SmartMirrorException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void createSettingFile(int boundsX, int boundsY, int xCoord, int yCoord) throws IOException {
 		sfl = new SettingsFileHandler();
 		sfl.fillInSettingFile(boundsX, boundsY, xCoord, yCoord);

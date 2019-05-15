@@ -1,3 +1,9 @@
+/**
+* @author  Moritz Lindner
+* @version 0.1
+* @since 15.05.2019 
+*/
+
 package smartMirror.Command.Commands;
 
 import java.util.Scanner;

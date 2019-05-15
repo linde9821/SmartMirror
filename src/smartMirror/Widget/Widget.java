@@ -1,4 +1,11 @@
-package smartMirror.widget;
+/**
+* @author  Moritz Lindner
+* @version 0.2.0
+* @since 15.05.2019 
+*/
+
+
+package smartMirror.Widget;
 
 import java.awt.Color;
 import java.awt.Graphics;

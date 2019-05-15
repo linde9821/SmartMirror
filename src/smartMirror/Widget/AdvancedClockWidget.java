@@ -1,4 +1,12 @@
-package smartMirror.widget;
+/**
+* Widget welches eine Analoguhr, mit Stunden-, Minuten- und Sekundenzeiger, 
+* entsprechend der, aktuellen Systemzeit, rendert.
+* @author  Moritz Lindner
+* @version 1.0.0
+* @since 15.05.2019 
+*/
+
+package smartMirror.Widget;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -14,11 +22,11 @@ import java.time.LocalTime;
 import javax.imageio.ImageIO;
 
 import smartMirror.Location.Area;
-import smartMirror.SMPanel.SMPanel;
+import smartMirror.Panel.SmartMirrorPanel;
 
-public class AdvancedClock extends Widget {
+public class AdvancedClockWidget extends Widget {
 	private static final long UPDATETIME = 16;
-	private SMPanel panel;
+	private SmartMirrorPanel panel;
 
 	private double sekunden, minuten, stunden;
 	private int mx, my;
@@ -29,15 +37,17 @@ public class AdvancedClock extends Widget {
 
 	private BufferedImage img;
 
-	public AdvancedClock(int x, int y, int width, int hight, SMPanel panel) {
+	public AdvancedClockWidget(int x, int y, int width, int hight, SmartMirrorPanel panel) {
 		super(new Area(x, y, width, hight));
 		this.panel = panel;
 
 		update();
-		
-		stundenzeiger = new Rectangle2D.Float(mx, my - 0.025f * area.getWidth() / 2, area.getWidth()/4, 0.025f * area.getWidth());
+
+		stundenzeiger = new Rectangle2D.Float(mx, my - 0.025f * area.getWidth() / 2, area.getWidth() / 4,
+				0.025f * area.getWidth());
 		minutenzeiger = new Rectangle2D.Float(mx, my - 3.5f, 0.35f * area.getWidth(), 7);
-		sekundenzeiger = new Rectangle2D.Float(mx + 0.45f * area.getWidth(), my - 3, 0.0175f * area.getWidth(), 0.015f*area.getHight());
+		sekundenzeiger = new Rectangle2D.Float(mx + 0.45f * area.getWidth(), my - 3, 0.0175f * area.getWidth(),
+				0.015f * area.getHight());
 
 		img = null;
 
@@ -82,14 +92,15 @@ public class AdvancedClock extends Widget {
 
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-		
+
 		g2d.drawImage(img, area.getxCoord(), area.getyCoord(), area.getWidth(), area.getHight(), null);
 		drawH(g2d);
 		drawS(g2d);
 		drawM(g2d);
 		g2d.setPaint(Color.WHITE);
-		//g2d.drawArc(mx - 10, my - 10,(int) (0.05f * area.getWidth()),(int) (0.05f * area.getWidth()), 0, 360);
-		g2d.fillArc(mx - 10, my - 10,(int) (0.05f * area.getWidth()),(int) (0.05f * area.getWidth()), 0, 360);
+		// g2d.drawArc(mx - 10, my - 10,(int) (0.05f * area.getWidth()),(int) (0.05f *
+		// area.getWidth()), 0, 360);
+		g2d.fillArc(mx - 10, my - 10, (int) (0.05f * area.getWidth()), (int) (0.05f * area.getWidth()), 0, 360);
 	}
 
 	private void drawH(Graphics2D g2d) {
@@ -102,7 +113,7 @@ public class AdvancedClock extends Widget {
 
 		g2d.setPaint(Color.WHITE);
 		g2d.fill(stundenzeiger);
-		//g2d.draw(stundenzeiger);
+		// g2d.draw(stundenzeiger);
 
 		g2d.rotate(-Math.toRadians(pos), area.getxCoord() + area.getWidth() / 2,
 				area.getyCoord() + area.getHight() / 2);
@@ -118,7 +129,7 @@ public class AdvancedClock extends Widget {
 
 		g2d.setPaint(Color.WHITE);
 		g2d.fill(minutenzeiger);
-		//g2d.draw(minutenzeiger);
+		// g2d.draw(minutenzeiger);
 
 		g2d.rotate(-Math.toRadians(pos), area.getxCoord() + area.getWidth() / 2,
 				area.getyCoord() + area.getHight() / 2);
@@ -134,7 +145,7 @@ public class AdvancedClock extends Widget {
 
 		g2d.setPaint(Color.RED);
 		g2d.fill(sekundenzeiger);
-		//g2d.draw(sekundenzeiger);
+		// g2d.draw(sekundenzeiger);
 
 		g2d.rotate(-Math.toRadians(pos), area.getxCoord() + area.getWidth() / 2,
 				area.getyCoord() + area.getHight() / 2);
