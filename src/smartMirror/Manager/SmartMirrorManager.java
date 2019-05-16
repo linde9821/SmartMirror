@@ -1,7 +1,8 @@
 /**
  * Kontrolliert den gesamten Ablauf des Programms. Ist Einstiegspunkt.
-* @author  Moritz Lindner & Marvin Saﬂe
-* @version 0.3.1
+* @author Moritz Lindner 
+* @author Marvin Saﬂe
+* @version 0.3.2
 * @since 15.05.2019 
 */
 

@@ -1,8 +1,10 @@
 /**
+ * 
  * Steuert die Verwendung von Commands zur Laufzeit
-* @author  Moritz Lindner
-* @version 0.1.1
-* @since 15.05.2019 
+ * 
+ * @author  Moritz Lindner
+ * @version 0.1.2
+ * @since 16.05.2019 
 */
 
 package smartMirror.Command;

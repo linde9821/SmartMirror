@@ -1,9 +1,16 @@
 /**
 * Widget welches eine Analoguhr, mit Stunden-, Minuten- und Sekundenzeiger, 
 * entsprechend der, aktuellen Systemzeit, rendert.
+* 
 * @author  Moritz Lindner
-* @version 1.0.0
+* @version 1.0.1
 * @since 15.05.2019 
+* 
+* Checklog:
+* 1.0.0
+* 	- erste nutzebare fertige Version
+* 1.0.1
+* 	- import reorganisation
 */
 
 package smartMirror.Widget;
@@ -12,7 +19,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.geom.Arc2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;

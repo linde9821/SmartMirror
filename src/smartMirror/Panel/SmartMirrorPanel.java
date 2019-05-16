@@ -1,5 +1,6 @@
 /**
 * Panel welches als Container für alle Widgets dient.
+* 
 * @author  Moritz Lindner
 * @version 0.3.0
 * @since 15.05.2019 
