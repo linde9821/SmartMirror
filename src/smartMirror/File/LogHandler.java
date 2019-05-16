@@ -1,7 +1,10 @@
 /**
 * @author  Marvin Saﬂe
-* @version 0.1
+* @version 0.1.1
 * @since 15.05.2019 
+* 
+* Changelog:
+* 	- "gefunden"-Benarichtigung entfernt aufgrund der Anpassung der Startroutine 
 */
 
 package smartMirror.File;
@@ -62,10 +65,9 @@ public class LogHandler {
 	
 	public static boolean fileExist() {
 		boolean status = false;
-		if (logFile.exists()) {
-			System.out.print("gefunden");
+		
+		if (logFile.exists()) 
 			status = true;
-		}
 		
 		return status;
 	}
