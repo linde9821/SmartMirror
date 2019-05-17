@@ -3,14 +3,17 @@
 * entsprechend der, aktuellen Systemzeit, rendert.
 * 
 * @author  Moritz Lindner
-* @version 1.0.1
-* @since 15.05.2019 
+* @version 1.0.2
+* @since 17.05.2019 
 * 
 * Checklog:
 * 1.0.0
 * 	- erste nutzebare fertige Version
 * 1.0.1
 * 	- import reorganisation
+* 
+* 1.0.2
+* 	- reorganisation for AdvancedDigitalClock
 */
 
 package smartMirror.Widget;
@@ -31,13 +34,13 @@ import smartMirror.Location.Area;
 import smartMirror.Panel.SmartMirrorPanel;
 
 public class AdvancedClockWidget extends Widget {
-	private static final long UPDATETIME = 16;
-	private SmartMirrorPanel panel;
+	protected static final long UPDATETIME = 16;
+	protected SmartMirrorPanel panel;
 
 	private double sekunden, minuten, stunden;
 	private int mx, my;
 
-	private LocalTime now;
+	protected LocalTime now;
 
 	private Rectangle2D sekundenzeiger, minutenzeiger, stundenzeiger;
 
