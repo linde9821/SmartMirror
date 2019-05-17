@@ -9,16 +9,20 @@
 package smartMirror.Widget;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import com.google.gson.Gson;
 //import com.google.gson.reflect.*;
@@ -29,8 +33,6 @@ import smartMirror.Panel.SmartMirrorPanel;
 
 public class WeatherWidget extends Widget{
 
-	//Gson g = new Gson();
-	
 	SmartMirrorPanel panel;
 	String API_KEY = "606c4ddff406d41d6beb47980236cc96";
 	String LOCATION = "Berlin,de";
@@ -42,9 +44,14 @@ public class WeatherWidget extends Widget{
 	String deg = "";
 	String sky = "";
 	
+	BufferedImage sunImage;
+	BufferedImage tempImage;
+	BufferedImage humidityImage;
+	
 	public WeatherWidget(int x, int y, int width, int hight, SmartMirrorPanel panel) {
 		super(new Area(x, y, width, hight));
 		this.panel = panel;
+		getWeatherIcons();
 	}
 	
 	
@@ -60,16 +67,17 @@ public class WeatherWidget extends Widget{
 				result.append(line);
 			}
 			rd.close();
-			System.out.print("Das reslut: " + result.toString());
+			//gibt die gesamte json datei aus
+			//System.out.print("Das reslut: " + result.toString());
 
 			Map<String, Object> respMap = jsonToMap(result.toString());
- 			Map<String, Object> weatherMap = jsonToMap(respMap.get("coord").toString());
+ 			//Map<String, Object> weatherMap = jsonToMap(respMap.get("coord").toString());
 			Map<String, Object> mainMap = jsonToMap(respMap.get("main").toString());
 			Map<String, Object> windMap = jsonToMap(respMap.get("wind").toString());
 
 			//sky = "" + weatherMap.get("description");
-			temperature = "Aktuelle Temperatur: " +  mainMap.get("temp");
-			humidity =  "Aktuelle Luftfeuchtigkeit: " + mainMap.get("humidity");
+			temperature = "Aktuelle Temperatur: " +  mainMap.get("temp") + "°C";
+			humidity =  "Aktuelle Luftfeuchtigkeit: " + mainMap.get("humidity") + "%";
 			windSpeed = "Atuelle Windgeschwindigkeit: " + windMap.get("speed");
 			deg = "Aktuelles irgendwas: " + windMap.get("deg");
 		} catch (IOException e) {
@@ -84,13 +92,17 @@ public class WeatherWidget extends Widget{
 	
 	public void render(Graphics g) {
 		super.render(g);
+		ImageObserver observer = null;
 		g.setColor(Color.WHITE);
+		g.setFont(new Font("Impact", Font.BOLD, 20));
 		getWeatherInfos();
-		//g.drawString(sky, area.getxCoord(), area.getyCoord());
-		g.drawString(temperature, area.getxCoord(), area.getyCoord()+20);
-		g.drawString(humidity, area.getxCoord(), area.getyCoord()+40);
-		g.drawString(windSpeed, area.getxCoord(), area.getyCoord()+60);
-		g.drawString(deg, area.getxCoord(), area.getyCoord()+80);
+		g.drawImage(tempImage, area.getxCoord(), area.getyCoord() + 5, tempImage.getWidth(), tempImage.getHeight(), observer);
+		g.drawString(temperature, area.getxCoord() + tempImage.getWidth() + 5, area.getyCoord() + (tempImage.getHeight() - 15));
+		g.drawImage(humidityImage, area.getxCoord(), area.getyCoord() + tempImage.getHeight() + 15, humidityImage.getWidth(), humidityImage.getHeight(), observer);
+		g.drawString(humidity, area.getxCoord() + humidityImage.getWidth(), area.getyCoord() + (humidityImage.getHeight() * 2  ));
+		//g.drawString(windSpeed, area.getxCoord(), area.getyCoord()+60);
+		//g.drawString(deg, area.getxCoord(), area.getyCoord()+80);
+		//g.drawImage(sunImage, area.getxCoord(), area.getyCoord()-50, sunImage.getWidth(), sunImage.getHeight(), observer);
 	}
 	
 	@Override
@@ -104,14 +116,25 @@ public class WeatherWidget extends Widget{
 		}
 	}
 	
-	public String getTime() {
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-		String timeNow = sdf.format(new Date());
-		return timeNow;
-	}
-	
 	private void update() {
 		panel.repaint();
+	}
+	
+	private void getWeatherIcons() {
+		try {
+			sunImage = ImageIO.read(new File(getImageFile() + "\\sun.png"));
+			tempImage = ImageIO.read(new File(getImageFile() + "\\temp.png"));
+			humidityImage = ImageIO.read(new File(getImageFile() + "\\humidity.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private  String getImageFile() {
+		String filename = "weatherimg" + File.separator;
+		File imageFile = new File(filename);
+		return imageFile.toString();
 	}
 
 }
