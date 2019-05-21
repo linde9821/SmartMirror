@@ -68,10 +68,10 @@ public class WeatherWidget extends Widget{
 			}
 			rd.close();
 			//gibt die gesamte json datei aus
-			//System.out.print("Das reslut: " + result.toString());
+			System.out.print("Das reslut: " + result.toString());
 
 			Map<String, Object> respMap = jsonToMap(result.toString());
- 			//Map<String, Object> weatherMap = jsonToMap(respMap.get("coord").toString());
+ 			//Map<String, Object> weatherMap = jsonToMap(respMap.get("weather").toString());
 			Map<String, Object> mainMap = jsonToMap(respMap.get("main").toString());
 			Map<String, Object> windMap = jsonToMap(respMap.get("wind").toString());
 
