@@ -1,8 +1,8 @@
 /**
 * Widget, welches das aktuelle Wetter von openweathermap.org holt und anzeigt
 * @author  Marvin Saße
-* @version 0.1.0
-* @since 15.05.2019 
+* @version 0.2.0
+* @since 22.05.2019 
 */
 
 
@@ -44,7 +44,7 @@ public class WeatherWidget extends Widget{
 	String temp_max = "";
 	String humidity = "";
 	String pressure = "";
-	String sky = "";
+	String skyid = "";
 	
 	BufferedImage image;
 	
@@ -67,7 +67,7 @@ public class WeatherWidget extends Widget{
 			}
 			rd.close();
 			//gibt die gesamte json datei aus
-			//System.out.print(result.toString());
+			System.out.print(result.toString());
 
 
 			JsonParser parser = new JsonParser();
@@ -93,7 +93,7 @@ public class WeatherWidget extends Widget{
                     JsonArray temp = weather.getAsJsonArray();
                     JsonObject entry = temp.get(0).getAsJsonObject();
             
-                    sky = entry.get("description").getAsString();
+                    skyid = entry.get("id").getAsString();
                 }
             }
 		} catch (IOException e) {
@@ -146,54 +146,238 @@ public class WeatherWidget extends Widget{
 	
 	public void getWeatherImage() throws IOException {
 		
-		System.out.println(sky);
+		//System.out.println(sky);
 		
 		// gegebenenfalls muss noch für jede discription alles angepasst werden siehe folgenden link:
 		// https://openweathermap.org/weather-conditions
 		
-		switch(sky) {
-		case "few clouds":
-			image = ImageIO.read(new File(getImageFile() + "\\fewclouds.png"));;
+		switch(skyid) {
+		
+		
+		//ID's für Gewitter
+		case "200":
+			image = ImageIO.read(new File(getImageFile() + "\\storm.png"));
+			break;
+			
+		case "201":
+			image = ImageIO.read(new File(getImageFile() + "\\storm.png"));
+			break;
+			
+		case "202":
+			image = ImageIO.read(new File(getImageFile() + "\\storm.png"));
+			break;
+			
+		case "210":
+			image = ImageIO.read(new File(getImageFile() + "\\storm.png"));
 			break;
 		
-		case "clear sky":
+		case "211":
+			image = ImageIO.read(new File(getImageFile() + "\\storm.png"));
+			break;
+			
+		case "212":
+			image = ImageIO.read(new File(getImageFile() + "\\storm.png"));
+			break;
+			
+		case "221":
+			image = ImageIO.read(new File(getImageFile() + "\\storm.png"));
+			break;
+			
+		case "230":
+			image = ImageIO.read(new File(getImageFile() + "\\storm.png"));
+			break;
+			
+		case "231":
+			image = ImageIO.read(new File(getImageFile() + "\\storm.png"));
+			break;
+		
+		case "232":
+			image = ImageIO.read(new File(getImageFile() + "\\storm.png"));
+			break;
+			
+		// ID's für leichten Regen
+		case "300":
+			image = ImageIO.read(new File(getImageFile() + "\\little_rain.png"));
+			break;
+			
+		case "301":
+			image = ImageIO.read(new File(getImageFile() + "\\little_rain.png"));
+			break;
+			
+		case "302":
+			image = ImageIO.read(new File(getImageFile() + "\\little_rain.png"));
+			break;
+			
+		case "310":
+			image = ImageIO.read(new File(getImageFile() + "\\little_rain.png"));
+			break;
+		
+		case "311":
+			image = ImageIO.read(new File(getImageFile() + "\\little_rain.png"));
+			break;
+			
+		case "312":
+			image = ImageIO.read(new File(getImageFile() + "\\little_rain.png"));
+			break;
+			
+		case "314":
+			image = ImageIO.read(new File(getImageFile() + "\\little_rain.png"));
+			break;
+			
+		case "321":
+			image = ImageIO.read(new File(getImageFile() + "\\little_rain.png"));
+			break;
+			
+		//ID's für starken Regen
+			
+		case "500":
+			image = ImageIO.read(new File(getImageFile() + "\\rain.png"));
+			break;
+			
+		case "501":
+			image = ImageIO.read(new File(getImageFile() + "\\rain.png"));
+			break;
+			
+		case "502":
+			image = ImageIO.read(new File(getImageFile() + "\\rain.png"));
+			break;
+			
+		case "503":
+			image = ImageIO.read(new File(getImageFile() + "\\rain.png"));
+			break;
+		
+		case "504":
+			image = ImageIO.read(new File(getImageFile() + "\\rain.png"));
+			break;	
+			
+		case "511":
+			image = ImageIO.read(new File(getImageFile() + "\\rain.png"));
+			break;
+			
+		case "520":
+			image = ImageIO.read(new File(getImageFile() + "\\rain.png"));
+			break;
+			
+		case "521":
+			image = ImageIO.read(new File(getImageFile() + "\\rain.png"));
+			break;
+			
+		case "522":
+			image = ImageIO.read(new File(getImageFile() + "\\rain.png"));
+			break;
+		
+		case "531":
+			image = ImageIO.read(new File(getImageFile() + "\\rain.png"));
+			break;
+			
+		//ID's für Schnee
+		case "600":
+			image = ImageIO.read(new File(getImageFile() + "\\rain.png"));
+			break;
+			
+		case "601":
+			image = ImageIO.read(new File(getImageFile() + "\\rain.png"));
+			break;
+			
+		case "602":
+			image = ImageIO.read(new File(getImageFile() + "\\snow.png"));
+			break;
+			
+		case "611":
+			image = ImageIO.read(new File(getImageFile() + "\\snow.png"));
+			break;
+		
+		case "612":
+			image = ImageIO.read(new File(getImageFile() + "\\snow.png"));
+			break;	
+			
+		case "613":
+			image = ImageIO.read(new File(getImageFile() + "\\snow.png"));
+			break;
+			
+		case "615":
+			image = ImageIO.read(new File(getImageFile() + "\\snow.png"));
+			break;
+			
+		case "616":
+			image = ImageIO.read(new File(getImageFile() + "\\snow.png"));
+			break;
+			
+		case "620":
+			image = ImageIO.read(new File(getImageFile() + "\\snow.png"));
+			break;
+		
+		case "621":
+			image = ImageIO.read(new File(getImageFile() + "\\snow.png"));
+			break;
+		
+		case "622":
+			image = ImageIO.read(new File(getImageFile() + "\\snow.png"));
+			break;
+
+		//ID's für Atmosphäre. Wird alles als "nebel" gehändelt
+		case "701":
+			image = ImageIO.read(new File(getImageFile() + "\\dust.png"));
+			break;
+			
+		case "711":
+			image = ImageIO.read(new File(getImageFile() + "\\dust.png"));
+			break;
+			
+		case "721":
+			image = ImageIO.read(new File(getImageFile() + "\\dust.png"));
+			break;
+			
+		case "731":
+			image = ImageIO.read(new File(getImageFile() + "\\dust.png"));
+			break;
+		
+		case "741":
+			image = ImageIO.read(new File(getImageFile() + "\\dust.png"));
+			break;	
+			
+		case "751":
+			image = ImageIO.read(new File(getImageFile() + "\\dust.png"));
+			break;
+			
+		case "761":
+			image = ImageIO.read(new File(getImageFile() + "\\dust.png"));
+			break;
+			
+		case "762":
+			image = ImageIO.read(new File(getImageFile() + "\\dust.png"));
+			break;
+			
+		case "771":
+			image = ImageIO.read(new File(getImageFile() + "\\dust.png"));
+			break;
+		
+		case "781":
+			image = ImageIO.read(new File(getImageFile() + "\\dust.png"));
+			break;
+			
+		//ID' für Sonne
+		case "800":
 			image = ImageIO.read(new File(getImageFile() + "\\sun.png"));
 			break;
-			
-		case "light rain":
-			image = ImageIO.read(new File(getImageFile() + "\\rain.png"));
-			break;
-			
-		case "scattered clouds":
-			// anpassen an wolken
+		
+		//ID'S für Bewölkt
+		case "801":
 			image = ImageIO.read(new File(getImageFile() + "\\fewclouds.png"));;
 			break;
-		
-		case "broken clouds":
-			// ebenfalls nur als wolken handzuhaben
-			image = ImageIO.read(new File(getImageFile() + "\\fewclouds.png"));
-			break;
-			
-		case "shower rain":
-			//schauer
-			image = ImageIO.read(new File(getImageFile() + "\\rain.png"));
-			break;
-			
-		case "thunderstorm":
-			//gewitter
+	
+		case "802":
 			image = ImageIO.read(new File(getImageFile() + "\\fewclouds.png"));;
 			break;
-		
-		case "snow":
-			//schnee
-			image = ImageIO.read(new File(getImageFile() + "\\fewclouds.png"));
+			
+		case "803":
+			image = ImageIO.read(new File(getImageFile() + "\\fewclouds.png"));;
 			break;
 			
-		case "mist":
-			//nebel
-			image = ImageIO.read(new File(getImageFile() + "\\rain.png"));
+		case "804":
+			image = ImageIO.read(new File(getImageFile() + "\\fewclouds.png"));;
 			break;
-		
+
 		default:
 			LogHandler.addTextToLogFile(LogHandler.WEATHERERROR, "No weather solution!");
 		}
