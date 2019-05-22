@@ -25,6 +25,7 @@ public class LogHandler {
 	public static String CHANGED = "CHANGED";
 	public static String STARTED = "STARTED";
 	public static String ADDED = "ADDED";
+	public static String WEATHERERROR = "WEATHERERROR";
 	
 	
 	public static void iniLogHandler() throws IOException {
