@@ -1,6 +1,7 @@
 /**
 * @author  Marvin Saﬂe
-* @version 1.0
+* @author Moritz Lindner
+* @version 1.0.1
 * @since 15.05.2019 
 */
 

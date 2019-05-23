@@ -1,13 +1,24 @@
 /**
  * Kontrolliert den gesamten Ablauf des Programms. Ist Einstiegspunkt.
-* @author  Moritz Lindner & Marvin Sa�e
-* @version 0.3.1
-* @since 15.05.2019 
+* @author Moritz Lindner 
+* @author Marvin Saße
+* @version 0.3.4
+* @since 16.05.2019 
+* 
+* Changelog:
+* 0.3.4
+* 	- Dokumentationserweiterung
+* 
+* 0.3.3
+* 	- verbesserte Startzeit #21
+* 	- angepasste Startprozedur  
+* 	- Frameposition angepasst 
+* 	- keine Widgets mehr in der Autoloadfunktion 
+* 	- Dokumentationserweiterunn
 */
 
 package smartMirror.Manager;
 
-import java.awt.EventQueue;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -19,8 +30,11 @@ import smartMirror.File.LogHandler;
 import smartMirror.File.SettingsFileHandler;
 import smartMirror.Panel.SmartMirrorPanel;
 import smartMirror.Settings.Settings;
+
 import smartMirror.Widget.AdvancedClockWidget;
 import smartMirror.Widget.WeatherWidget;
+import smartMirror.Widget.AdvancedDigitalClock;
+
 
 public class SmartMirrorManager {
 	private static Settings settings;
@@ -32,8 +46,8 @@ public class SmartMirrorManager {
 
 	public SmartMirrorManager() throws IOException {
 		frame = new JFrame();
-		int boundX = 100;
-		int boundY = 100;
+		int boundX = 0;
+		int boundY = 10;
 		frame.setBounds(boundX, boundY, settings.getX(), settings.getY());
 		createSettingFile(boundX, boundY, settings.getX(), settings.getY());
 
@@ -47,7 +61,7 @@ public class SmartMirrorManager {
 	}
 
 	/**
-	 * Einstiegspunkt und Hauptfunktion des Programms. Initiert alle ben�tigten
+	 * Einstiegspunkt und Hauptfunktion des Programms. Initiert alle benötigten
 	 * Programmteile und beendet diese auch.
 	 * 
 	 * @param args not used
@@ -58,16 +72,9 @@ public class SmartMirrorManager {
 		while (!configurate())
 			;
 
-		System.out.println("Succesfully configurated");
+		System.out.println("succesfully configurated");
 		startSmartMirror();
-		System.out.println("Succesfully started\nEnter (E)xit to stop the program");
-
-		// wait for frame
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
+		System.out.println("succesfully started");
 
 		startManager();
 
@@ -78,7 +85,7 @@ public class SmartMirrorManager {
 	 * Konfiguriert Programm. (Aktuell wird automatisch die Standardkonfiguration
 	 * geladen, d.h. die Userabfragen wurden deaktiviert)
 	 * 
-	 * @return
+	 * @return boolean welcher angibt ob die Konfiguration erfolgreich war
 	 */
 	private static boolean configurate() {
 		System.out.println("Ini SmartMirror with default values? (y)es or (n)o: ");
@@ -102,29 +109,24 @@ public class SmartMirrorManager {
 	}
 
 	/**
-	 * Erstell den Frame des Mirrors
+	 * Erstellt den Frame des Mirrors
 	 */
 	private static void startSmartMirror() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					// das ist garantiert nicht sch�n aber es funktioniert
-					new SmartMirrorManager();
-					SmartMirrorManager.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		try {
+			new SmartMirrorManager();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		SmartMirrorManager.frame.setVisible(true);
 	}
 
 	/**
-	 * Hauptschleife des Managers. Beinhaltet den CommandHandler und �bernimmt daher
+	 * Hauptschleife des Managers. Beinhaltet den CommandHandler und übernimmt daher
 	 * die interaktion mit dem Nutzer.
 	 */
 	private static void startManager() {
 		commandHandler = new CommandHandler(panel.getWidgetHandler());
-		System.out.println("Commandhandler online:");
+		System.out.println("**********************\nCommandhandler online:\n**********************");
 		Scanner scanner = new Scanner(System.in);
 		String input;
 
@@ -156,8 +158,14 @@ public class SmartMirrorManager {
 		}
 	}
 
+	/**
+	 * Setzt die x- und y-Dimension des Frames auf die übergebenen Werte.
+	 * 
+	 * @param xdim Neuer Wert für die X-Dimension
+	 * @param ydim Neuer Wert für die y-Dimension
+	 */
 	public static void changeDim(int xdim, int ydim) {
-		frame.setBounds(100, 100, xdim, ydim);
+		frame.setBounds(100, 100, xdim, ydim); // hier sollten die Bounds aus Settings eingebaut werden
 		settings.setX(xdim);
 		settings.setY(ydim);
 		panel.setBounds(0, 0, settings.getX(), settings.getY());
@@ -165,25 +173,33 @@ public class SmartMirrorManager {
 		panel.getWidgetHandler().proofAllWidgets();
 	}
 
+	/**
+	 * Setzt die y-Dimension des Frames auf den übergeben Wert.
+	 * 
+	 * @param ydim Neuer Wert für die y-Dimension
+	 */
 	public static void changeyDim(int ydim) {
 		changeDim(frame.getX(), ydim);
 	}
 
 	/**
+	 * Setzt die x-Dimension des Frames auf den übergeben Wert.
 	 * 
-	 * @param xdim Neuer Wert f�r die X-Dimension
+	 * @param xdim Neuer Wert für die X-Dimension
 	 */
 	public static void changexDim(int xdim) {
 		changeDim(xdim, frame.getY());
 	}
 
 	private static void autoloadWidgets() {
+  /*
 		try {
-			//panel.getWidgetHandler().addWidget(new AdvancedClockWidget(5, 5, 400, 400, panel));
+			panel.getWidgetHandler().addWidget(new AdvancedClockWidget(5, 5, 400, 400, panel));
 			panel.getWidgetHandler().addWidget(new WeatherWidget(5, 5, 400, 400,panel));
 		} catch (SmartMirrorException e) {
 			e.printStackTrace();
 		}
+  */
 	}
 
 	private void createSettingFile(int boundsX, int boundsY, int xCoord, int yCoord) throws IOException {

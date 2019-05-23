@@ -1,7 +1,7 @@
 /**
 * @author  Moritz Lindner
-* @version 0.1
-* @since 15.05.2019 
+* @version 0.1.1
+* @since 16.05.2019 
 */
 
 package smartMirror.Command.Commands;
@@ -18,7 +18,7 @@ public class AddDateAndClockWidgetCommand extends AddWidgetCommand {
 		super(wh);
 		this.command = "add dateandclockwidget";
 	}
-	
+
 	@Override
 	public void runCommand() throws SmartMirrorException {
 		Scanner scanner = new Scanner(System.in);
