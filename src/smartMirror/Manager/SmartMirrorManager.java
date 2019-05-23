@@ -1,7 +1,7 @@
 /**
  * Kontrolliert den gesamten Ablauf des Programms. Ist Einstiegspunkt.
 * @author Moritz Lindner 
-* @author Marvin Saße
+* @author Marvin SaÃŸe
 * @version 0.3.4
 * @since 16.05.2019 
 * 
@@ -30,7 +30,11 @@ import smartMirror.File.LogHandler;
 import smartMirror.File.SettingsFileHandler;
 import smartMirror.Panel.SmartMirrorPanel;
 import smartMirror.Settings.Settings;
+
+import smartMirror.Widget.AdvancedClockWidget;
+import smartMirror.Widget.WeatherWidget;
 import smartMirror.Widget.AdvancedDigitalClock;
+
 
 public class SmartMirrorManager {
 	private static Settings settings;
@@ -57,7 +61,7 @@ public class SmartMirrorManager {
 	}
 
 	/**
-	 * Einstiegspunkt und Hauptfunktion des Programms. Initiert alle benötigten
+	 * Einstiegspunkt und Hauptfunktion des Programms. Initiert alle benÃ¶tigten
 	 * Programmteile und beendet diese auch.
 	 * 
 	 * @param args not used
@@ -117,7 +121,7 @@ public class SmartMirrorManager {
 	}
 
 	/**
-	 * Hauptschleife des Managers. Beinhaltet den CommandHandler und übernimmt daher
+	 * Hauptschleife des Managers. Beinhaltet den CommandHandler und Ã¼bernimmt daher
 	 * die interaktion mit dem Nutzer.
 	 */
 	private static void startManager() {
@@ -155,10 +159,10 @@ public class SmartMirrorManager {
 	}
 
 	/**
-	 * Setzt die x- und y-Dimension des Frames auf die übergebenen Werte.
+	 * Setzt die x- und y-Dimension des Frames auf die Ã¼bergebenen Werte.
 	 * 
-	 * @param xdim Neuer Wert für die X-Dimension
-	 * @param ydim Neuer Wert für die y-Dimension
+	 * @param xdim Neuer Wert fÃ¼r die X-Dimension
+	 * @param ydim Neuer Wert fÃ¼r die y-Dimension
 	 */
 	public static void changeDim(int xdim, int ydim) {
 		frame.setBounds(100, 100, xdim, ydim); // hier sollten die Bounds aus Settings eingebaut werden
@@ -170,33 +174,32 @@ public class SmartMirrorManager {
 	}
 
 	/**
-	 * Setzt die y-Dimension des Frames auf den übergeben Wert.
+	 * Setzt die y-Dimension des Frames auf den Ã¼bergeben Wert.
 	 * 
-	 * @param ydim Neuer Wert für die y-Dimension
+	 * @param ydim Neuer Wert fÃ¼r die y-Dimension
 	 */
 	public static void changeyDim(int ydim) {
 		changeDim(frame.getX(), ydim);
 	}
 
 	/**
-	 * Setzt die x-Dimension des Frames auf den übergeben Wert.
+	 * Setzt die x-Dimension des Frames auf den Ã¼bergeben Wert.
 	 * 
-	 * @param xdim Neuer Wert für die X-Dimension
+	 * @param xdim Neuer Wert fÃ¼r die X-Dimension
 	 */
 	public static void changexDim(int xdim) {
 		changeDim(xdim, frame.getY());
 	}
 
 	private static void autoloadWidgets() {
-
+  /*
 		try {
-			//panel.getWidgetHandler().addWidget(new AdvancedClockWidget(5, 5, 400, 400, panel));
-			//panel.getWidgetHandler().addWidget(new WeatherWidget(5, 600, 400, 400, panel));
-			panel.getWidgetHandler().addWidget(new AdvancedDigitalClock(5, 5, 400, 400, panel));
+			panel.getWidgetHandler().addWidget(new AdvancedClockWidget(5, 5, 400, 400, panel));
+			panel.getWidgetHandler().addWidget(new WeatherWidget(5, 5, 400, 400,panel));
 		} catch (SmartMirrorException e) {
 			e.printStackTrace();
 		}
-
+  */
 	}
 
 	private void createSettingFile(int boundsX, int boundsY, int xCoord, int yCoord) throws IOException {
