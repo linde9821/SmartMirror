@@ -3,7 +3,7 @@
 * @author Moritz Lindner 
 * @author Marvin Saﬂe
 * @version 0.3.4
-* @since 16.05.2019 
+* @since 24.05.2019 
 * 
 * Changelog:
 * 0.3.4
@@ -15,6 +15,9 @@
 * 	- Frameposition angepasst 
 * 	- keine Widgets mehr in der Autoloadfunktion 
 * 	- Dokumentationserweiterunn
+* 
+* 0.3.4
+* 	- CommandHandler online-Ausgabe an richtige stelle gesetzt
 */
 
 package smartMirror.Manager;
@@ -122,11 +125,12 @@ public class SmartMirrorManager {
 	 */
 	private static void startManager() {
 		commandHandler = new CommandHandler(panel.getWidgetHandler());
-		System.out.println("**********************\nCommandhandler online:\n**********************");
 		Scanner scanner = new Scanner(System.in);
 		String input;
-
+		
 		autoloadWidgets();
+		
+		System.out.println("**********************\nCommandhandler online:\n**********************");
 
 		while (true) {
 			System.out.print("/: ");
