@@ -1,7 +1,13 @@
 /**
 * Widget, welches das aktuelle Wetter von openweathermap.org holt und anzeigt
 * @author  Marvin Saße
-* @version 0.2.0
+* 
+* @version 0.1.0
+* 	Grundfunktionen erstellt
+* 
+* @version 0.2.0 
+*  Änderungen im Laden der Images
+*  
 * @since 22.05.2019 
 */
 
@@ -145,9 +151,6 @@ public class WeatherWidget extends Widget{
 	
 	public void getWeatherImage() throws IOException {
 		
-		//System.out.println(sky);
-		
-		// gegebenenfalls muss noch für jede discription alles angepasst werden siehe folgenden link:
 		// https://openweathermap.org/weather-conditions
 		
 		switch(skyid) {

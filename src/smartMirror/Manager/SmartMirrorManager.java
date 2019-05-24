@@ -34,6 +34,7 @@ import smartMirror.Settings.Settings;
 import smartMirror.Widget.AdvancedClockWidget;
 import smartMirror.Widget.WeatherWidget;
 import smartMirror.Widget.AdvancedDigitalClock;
+import smartMirror.Widget.NewsWidget;
 
 
 public class SmartMirrorManager {
@@ -192,14 +193,14 @@ public class SmartMirrorManager {
 	}
 
 	private static void autoloadWidgets() {
-  /*
 		try {
-			panel.getWidgetHandler().addWidget(new AdvancedClockWidget(5, 5, 400, 400, panel));
-			panel.getWidgetHandler().addWidget(new WeatherWidget(5, 5, 400, 400,panel));
+			//panel.getWidgetHandler().addWidget(new AdvancedClockWidget(5, 500, 400, 400, panel));
+			//panel.getWidgetHandler().addWidget(new WeatherWidget(5, 5, 400, 400,panel));
+			panel.getWidgetHandler().addWidget(new NewsWidget(5,5,400,400,panel));
 		} catch (SmartMirrorException e) {
 			e.printStackTrace();
 		}
-  */
+
 	}
 
 	private void createSettingFile(int boundsX, int boundsY, int xCoord, int yCoord) throws IOException {

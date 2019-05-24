@@ -4,9 +4,9 @@
  * @author Marvin Saﬂe
  */
 
-module smartMirror {
+/*module smartMirror {
 	requires java.desktop;
 	requires java.logging;
 	requires gson;
 	requires java.sql;
-}
+}*/
