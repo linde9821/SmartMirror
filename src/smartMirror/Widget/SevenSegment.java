@@ -1,3 +1,19 @@
+/**
+* Widget welches ein einzelnes 7-Segment-Element anzeigt.
+* 
+* @author  Moritz Lindner
+* @version 0.2
+* @since 17.05.2019 
+* 
+* Changelog:
+* 0.1
+* 	- inital implementation
+* 
+* 0.2 
+* 	- 
+* 
+*/
+
 package smartMirror.Widget;
 
 import java.awt.Color;
@@ -9,6 +25,7 @@ import smartMirror.Location.Position;
 public class SevenSegment extends Widget {
 	boolean seg[];
 	private int scl;
+	private Color highColor, lowColor;
 
 	public SevenSegment(Area area) {
 		super(area);
@@ -20,13 +37,30 @@ public class SevenSegment extends Widget {
 		}
 		
 		scl = 10;
+		
+		highColor = Color.RED;
+		lowColor = Color.BLACK;
 	}
 
 	public SevenSegment(int x, int y, int width, int hight) {
 		this(new Area(x, y, width, hight));
 	}
-	
-	
+
+	public Color getHighColor() {
+		return highColor;
+	}
+
+	public void setHighColor(Color highColor) {
+		this.highColor = highColor;
+	}
+
+	public Color getLowColor() {
+		return lowColor;
+	}
+
+	public void setLowColor(Color lowColor) {
+		this.lowColor = lowColor;
+	}
 
 	public int getScale() {
 		return scl;
@@ -48,58 +82,58 @@ public class SevenSegment extends Widget {
 
 		// a
 		if (seg[0]) {
-			g.setColor(Color.RED);
+			g.setColor(highColor);
 		} else
-			g.setColor(Color.BLACK);
+			g.setColor(lowColor);
 
 		g.drawLine((x + 1) * scl, (y + 0) * scl, (x + 3) * scl, (y + 0) * scl);
 
 		// b
 		if (seg[1]) {
-			g.setColor(Color.RED);
+			g.setColor(highColor);
 		} else
-			g.setColor(Color.BLACK);
+			g.setColor(lowColor);
 
 		g.drawLine((x + 4) * scl, (y + 1) * scl, (x + 4) * scl, (y + 3) * scl);
 		
 		//c
 		if (seg[2]) {
-			g.setColor(Color.RED);
+			g.setColor(highColor);
 		} else
-			g.setColor(Color.BLACK);
+			g.setColor(lowColor);
 
 		g.drawLine((x + 4) * scl, (y + 5) * scl, (x + 4) * scl, (y + 7) * scl);
 
 		// d
 		if (seg[3]) {
-			g.setColor(Color.RED);
+			g.setColor(highColor);
 		} else
-			g.setColor(Color.BLACK);
+			g.setColor(lowColor);
 	
 		g.drawLine((x + 1) * scl, (y + 8) * scl, (x + 3) * scl, (y + 8) * scl);
 		
 		// e
 		if (seg[4]) {
-			g.setColor(Color.RED);
+			g.setColor(highColor);
 		} else
-			g.setColor(Color.BLACK);
+			g.setColor(lowColor);
 
 		g.drawLine((x + 0) * scl, (y + 5) * scl, (x + 0) * scl, (y + 7) * scl);
 
 		// f
 		if (seg[5]) {
-			g.setColor(Color.RED);
+			g.setColor(highColor);
 		} else
-			g.setColor(Color.BLACK);
+			g.setColor(lowColor);
 
 		g.drawLine((x + 0) * scl, (y + 1) * scl, (x + 0) * scl, (y + 3) * scl);
 		
 		
 		// g
 		if (seg[6]) {
-			g.setColor(Color.RED);
+			g.setColor(highColor);
 		} else
-			g.setColor(Color.BLACK);
+			g.setColor(lowColor);
 
 		g.drawLine((x + 1) * scl, (y + 4) * scl, (x + 3) * scl, (y + 4) * scl);
 	}
@@ -143,7 +177,7 @@ public class SevenSegment extends Widget {
 			val = "1111110";
 			break;
 		default:
-			val = "1111110";
+			val = "1111111";
 		}
 
 		setSegment(val);

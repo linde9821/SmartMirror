@@ -30,6 +30,7 @@ import smartMirror.File.LogHandler;
 import smartMirror.File.SettingsFileHandler;
 import smartMirror.Panel.SmartMirrorPanel;
 import smartMirror.Settings.Settings;
+import smartMirror.Widget.AdvancedClockWidget;
 import smartMirror.Widget.AdvancedDigitalClock;
 
 public class SmartMirrorManager {
@@ -190,9 +191,17 @@ public class SmartMirrorManager {
 	private static void autoloadWidgets() {
 
 		try {
-			//panel.getWidgetHandler().addWidget(new AdvancedClockWidget(5, 5, 400, 400, panel));
+			panel.getWidgetHandler().addWidget(new AdvancedClockWidget(5, 5, 400, 400, panel));
 			//panel.getWidgetHandler().addWidget(new WeatherWidget(5, 600, 400, 400, panel));
-			panel.getWidgetHandler().addWidget(new AdvancedDigitalClock(5, 5, 400, 400, panel));
+			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			panel.getWidgetHandler().addWidget(new AdvancedDigitalClock(5, 410, 400, 400, panel));
 		} catch (SmartMirrorException e) {
 			e.printStackTrace();
 		}

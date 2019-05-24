@@ -3,8 +3,14 @@
 * entsprechend der, aktuellen Systemzeit, rendert.
 * 
 * @author  Moritz Lindner
-* @version 0.1
+* @version 0.1.1
 * @since 17.05.2019 
+* 
+* Changelog:
+* 0.1:
+* 	- inital implementation
+* 
+* 0.1.1
 * 
 */
 
